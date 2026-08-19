@@ -1,0 +1,519 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Call Sheet">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230b0b0c'/%3E%3Ctext x='90' y='118' font-size='96' font-family='Georgia,serif' font-weight='bold' fill='%23d4af37' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+<title>Puretek Call Sheet</title>
+<style>
+:root{--bg:#0b0b0c;--card:#141416;--line:#26262a;--gold:#d4af37;--txt:#f2f2f0;--mut:#8e8e94;--ok:#3fb950}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:96px}
+header{padding:calc(16px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,11,12,.94);backdrop-filter:blur(10px);z-index:5}
+h1{margin:0;font-size:18px;letter-spacing:.02em} h1 span{color:var(--gold)}
+.sub{color:var(--mut);font-size:12px;margin-top:3px}
+#saved{color:var(--ok)}
+.bar{display:flex;gap:7px;margin-top:11px;overflow-x:auto}
+.bar a{flex:0 0 auto;color:var(--txt);text-decoration:none;font-size:12.5px;padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+main{padding:0 12px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin:26px 4px 8px;display:flex;align-items:center;gap:8px}
+.cnt{color:var(--mut);font-size:11.5px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;letter-spacing:0}
+.script{background:#17170f;border:1px solid #3a3320;border-left:3px solid var(--gold);border-radius:8px;padding:11px 13px;font-size:13.5px;color:#e8e2cf;margin:0 0 12px}
+.lead{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:9px;overflow:hidden}
+.lead.done{opacity:.45} .lead.hot{border-color:var(--ok);opacity:1}
+.lrow{display:flex;align-items:center;gap:11px;padding:12px 13px}
+.chk{flex:0 0 24px;width:24px;height:24px;border-radius:7px;border:1.5px solid #3a3a40;background:transparent}
+.lead.done .chk{background:var(--ok);border-color:var(--ok)}
+.linfo{flex:1;min-width:0}
+.lname{font-weight:600;font-size:15px;line-height:1.25}
+.lsub{color:var(--mut);font-size:11.5px;margin-top:2px}
+.mail{display:inline-block;color:var(--gold);font-size:11.5px;margin-top:3px;text-decoration:none;word-break:break-all}
+.call{flex:0 0 auto;background:var(--gold);color:#0b0b0c;font-weight:700;font-size:14px;text-decoration:none;padding:11px 13px;border-radius:9px;white-space:nowrap}
+.outcome{display:flex;gap:6px;padding:0 13px 10px;flex-wrap:wrap}
+.outcome button{flex:1;min-width:74px;font-size:11.5px;padding:8px 4px;border-radius:7px;border:1px solid var(--line);background:#1c1c20;color:var(--mut)}
+.outcome button.sel{background:var(--gold);border-color:var(--gold);color:#0b0b0c;font-weight:700}
+.note{display:none;width:calc(100% - 26px);margin:0 13px 11px;background:#0b0b0c;border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:8px;font:13px/1.4 inherit;resize:vertical}
+.lead.touched .note{display:block}
+footer{position:fixed;bottom:0;left:0;right:0;background:#111114;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:9px;font-size:13px;z-index:6}
+#stat{flex:1;color:var(--mut);font-size:12.5px} #stat b{color:var(--txt)}
+footer button{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:9px 12px;border-radius:8px;font-size:12.5px;font-weight:600}
+#rst{border-color:#4a2222;color:#a06060;padding:9px 10px}
+#out{width:100%;height:200px;background:#0b0b0c;color:var(--txt);border:1px solid var(--gold);border-radius:8px;padding:10px;font:12px/1.45 ui-monospace,Menlo,monospace;margin:14px 0 0;display:none}
+</style></head><body>
+<header>
+<h1>Puretek Global Cleaning &mdash; <span>Call Sheet</span></h1>
+<div class="sub">63 leads &middot; Cypress / NW Houston &middot; <span id="saved">saves automatically</span></div>
+<div class="bar"><a href="#t1">Property Mgmt</a><a href="#t2">Law</a><a href="#t3">Salons</a><a href="#t4">Realtors</a></div>
+</header>
+<main>
+<section class="tier" id="t1">
+<h2>Tier 1 — Property Mgmt &amp; Apartments <span class="cnt" data-tier="1">0/10</span></h2>
+<div class="script">“Hi, this is Donta with Puretek Global Cleaning here in Cypress. I work with property managers on turnover and move-out cleans — the vacant units between tenants. Who handles cleaning vendors for your properties?”</div>
+<div class="lead" data-id="Fairfield Ranch Apartments" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Fairfield Ranch Apartments</div><div class="lsub">Apartment complex · Cypress</div></div>
+<a class="call" href="tel:+12813782016">(281) 378-2016</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="StressFree Property Solutions" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">StressFree Property Solutions</div><div class="lsub">Property management company · Cypress</div></div>
+<a class="call" href="tel:+17132648240">(713) 264-8240</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="ParkLane Cypress Apartments" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">ParkLane Cypress Apartments</div><div class="lsub">Apartment rental agency · Cypress</div></div>
+<a class="call" href="tel:+18326539275">(832) 653-9275</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="First Class Realty &amp; Management" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">First Class Realty &amp; Management</div><div class="lsub">Property management company · Cypress</div></div>
+<a class="call" href="tel:+12817294400">(281) 729-4400</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Cadence Creek at Towne Lake" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Cadence Creek at Towne Lake</div><div class="lsub">Apartment rental agency · Cypress</div></div>
+<a class="call" href="tel:+12818050620">(281) 805-0620</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Ivy Point Cypress" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Ivy Point Cypress</div><div class="lsub">Apartment rental agency · Cypress</div></div>
+<a class="call" href="tel:+13465025148">(346) 502-5148</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Bleisek" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Bleisek</div><div class="lsub">Real estate rental agency · Cypress</div><a class="mail" href="mailto:info@bleisek.com">info@bleisek.com</a></div>
+<a class="call" href="tel:+13468485895">(346) 848-5895</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Berkshire Hathaway HomeServices Premier Properties - Cypress" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Berkshire Hathaway HomeServices Premier Properties - Cypress</div><div class="lsub">Property management company · Houston</div></div>
+<a class="call" href="tel:+12812252022">(281) 225-2022</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="PGR Property Management" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">PGR Property Management</div><div class="lsub">Property management company · Cypress</div></div>
+<a class="call" href="tel:+18322851381">(832) 285-1381</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Alberigo Hotel Management" data-tier="1">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Alberigo Hotel Management</div><div class="lsub">Property management company · Cypress</div></div>
+<a class="call" href="tel:+18327859322">(832) 785-9322</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div>
+</section><section class="tier" id="t2">
+<h2>Tier 2 — Law Offices <span class="cnt" data-tier="2">0/10</span></h2>
+<div class="script">“Hi, this is Donta with Puretek Global Cleaning here in Cypress. We handle office cleaning for law firms in the area — evenings, after hours, so nobody’s disturbed. Who handles your janitorial there?”</div>
+<div class="lead" data-id="Marc Whitehead &amp; Associates, Attorneys at Law" data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Marc Whitehead &amp; Associates, Attorneys at Law</div><div class="lsub">Social security attorney · Cypress</div></div>
+<a class="call" href="tel:+12815597641">(281) 559-7641</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Schechter, Shaffer &amp; Harris, LLP - Accident &amp; Injury Attorneys" data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Schechter, Shaffer &amp; Harris, LLP - Accident &amp; Injury Attorneys</div><div class="lsub">Personal injury attorney · Cypress</div></div>
+<a class="call" href="tel:+13465372934">(346) 537-2934</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="The Pollard Firm, PLLC" data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">The Pollard Firm, PLLC</div><div class="lsub">Family law attorney · Cypress</div></div>
+<a class="call" href="tel:+18328649296">(832) 864-9296</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Law Office Of Lori A. Kohnen" data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Law Office Of Lori A. Kohnen</div><div class="lsub">Attorney · Houston</div></div>
+<a class="call" href="tel:+12819550131">(281) 955-0131</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Wayne Gutman Law PLLC" data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Wayne Gutman Law PLLC</div><div class="lsub">Estate planning attorney · Cypress</div></div>
+<a class="call" href="tel:+18325291791">(832) 529-1791</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Law Offices of Kevin M. Jones &amp; Associates" data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Law Offices of Kevin M. Jones &amp; Associates</div><div class="lsub">Patent attorney · Cypress</div></div>
+<a class="call" href="tel:+18326759680">(832) 675-9680</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Frank Daniel" data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Frank Daniel</div><div class="lsub">Attorney · Cypress</div></div>
+<a class="call" href="tel:+18326631295">(832) 663-1295</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Callegari Law Firm" data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Callegari Law Firm</div><div class="lsub">Attorney · Cypress</div></div>
+<a class="call" href="tel:+12813041230">(281) 304-1230</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Black, Mann &amp; Graham L.L.P." data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Black, Mann &amp; Graham L.L.P.</div><div class="lsub">Real estate attorney · Cypress</div></div>
+<a class="call" href="tel:+17138710005">(713) 871-0005</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Texas Law Solutions" data-tier="2">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Texas Law Solutions</div><div class="lsub">Attorney · Cypress</div></div>
+<a class="call" href="tel:+13465139877">(346) 513-9877</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div>
+</section><section class="tier" id="t3">
+<h2>Tier 3 — Salons &amp; Barbers <span class="cnt" data-tier="3">0/26</span></h2>
+<div class="script">“Hi, this is Donta with Puretek Global Cleaning. We clean salons and barbershops around Cypress — floors, stations, restrooms, after close. Who handles the cleaning for you right now?”</div>
+<div class="lead" data-id="Moroccan beauty center" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Moroccan beauty center</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+13474491119">(347) 449-1119</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="M.K. HAIR STUDIO &amp; BARBER" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">M.K. HAIR STUDIO &amp; BARBER</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+12812132686">(281) 213-2686</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="The Factory Salon-Blackhorse" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">The Factory Salon-Blackhorse</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+12812567747">(281) 256-7747</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Perfection Hair salon &amp; barber حلاق عربي" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Perfection Hair salon &amp; barber حلاق عربي</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+18328040024">(832) 804-0024</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Hart Studios" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Hart Studios</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+18326533839">(832) 653-3839</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Exquisite Premier Barber Shop" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Exquisite Premier Barber Shop</div><div class="lsub">Barber shop · Cypress</div></div>
+<a class="call" href="tel:+12812132370">(281) 213-2370</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Modern Salon" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Modern Salon</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+18326535826">(832) 653-5826</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Chic Shades Hair Salon" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Chic Shades Hair Salon</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+12812132135">(281) 213-2135</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Tay Hair Studio" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Tay Hair Studio</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+12816507047">(281) 650-7047</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Exquisite Premier Salon and Spa" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Exquisite Premier Salon and Spa</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+12813042619">(281) 304-2619</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="High Definition HD Barbershop - Fairfield" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">High Definition HD Barbershop - Fairfield</div><div class="lsub">Barber shop · Cypress</div></div>
+<a class="call" href="tel:+18326533238">(832) 653-3238</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="IVNI Hair Studio" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">IVNI Hair Studio</div><div class="lsub">Beauty salon · Cypress</div></div>
+<a class="call" href="tel:+18329804864">(832) 980-4864</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Radiant Beauty Salon #1 in Color Solutions and Curly Hair in Cypress" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Radiant Beauty Salon #1 in Color Solutions and Curly Hair in Cypress</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+18322732454">(832) 273-2454</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Alcala Hair Studio" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Alcala Hair Studio</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+17132450486">(713) 245-0486</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Threading by Mehar" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Threading by Mehar</div><div class="lsub">Hair removal service · Cypress</div></div>
+<a class="call" href="tel:+18328290646">(832) 829-0646</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Oxygen Beauty PMU" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Oxygen Beauty PMU</div><div class="lsub">Permanent make-up clinic · Cypress</div></div>
+<a class="call" href="tel:+18326539028">(832) 653-9028</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="The Guest House Salon Studios" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">The Guest House Salon Studios</div><div class="lsub">Beauty salon · Cypress</div></div>
+<a class="call" href="tel:+18325340444">(832) 534-0444</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="The Cuttery Barber Studio" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">The Cuttery Barber Studio</div><div class="lsub">Barber shop · Cypress</div></div>
+<a class="call" href="tel:+18327567229">(832) 756-7229</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Martell&#x27;s Beauty Bar" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Martell&#x27;s Beauty Bar</div><div class="lsub">Beauty salon · Cypress</div></div>
+<a class="call" href="tel:+19363203029">(936) 320-3029</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Capelli by Terry" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Capelli by Terry</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+18328886765">(832) 888-6765</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Killer Looks" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Killer Looks</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+18324775776">(832) 477-5776</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Cypress Braid Specialist" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Cypress Braid Specialist</div><div class="lsub">Hairdresser · Cypress</div></div>
+<a class="call" href="tel:+18168251412">(816) 825-1412</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Bohemian Hair Garden" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Bohemian Hair Garden</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+19369009088">(936) 900-9088</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Simply Sara Jane" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Simply Sara Jane</div><div class="lsub">Barber shop · Cypress</div></div>
+<a class="call" href="tel:+19369003691">(936) 900-3691</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Ashley Heaton Hair Salon" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Ashley Heaton Hair Salon</div><div class="lsub">Beauty salon · Cypress</div></div>
+<a class="call" href="tel:+18323600221">(832) 360-0221</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="The Lotus Touch Hair Studio" data-tier="3">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">The Lotus Touch Hair Studio</div><div class="lsub">Hair salon · Cypress</div></div>
+<a class="call" href="tel:+14407894871">(440) 789-4871</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div>
+</section><section class="tier" id="t4">
+<h2>Tier 4 — Realtors (move-out referrals) <span class="cnt" data-tier="4">0/17</span></h2>
+<div class="script">“Hi, this is Donta with Puretek Global Cleaning. When you’ve got a listing that needs a move-out or pre-listing clean, we turn it around fast and it photographs well. Can I be your go-to for that?”</div>
+<div class="lead" data-id="The Cooley Team" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">The Cooley Team</div><div class="lsub">Real estate agency · Cypress</div></div>
+<a class="call" href="tel:+17133645182">(713) 364-5182</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Doug Plant Cypress Tx realtor" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Doug Plant Cypress Tx realtor</div><div class="lsub">Real estate agent · Cypress</div></div>
+<a class="call" href="tel:+12815469785">(281) 546-9785</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Mark Dimas Team brokered by Realty of America - Greater Houston Area" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Mark Dimas Team brokered by Realty of America - Greater Houston Area</div><div class="lsub">Real estate agency · Cypress</div></div>
+<a class="call" href="tel:+12818616199">(281) 861-6199</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Mark Dimas Properties | Real Estate Brokerage | Houston, TX" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Mark Dimas Properties | Real Estate Brokerage | Houston, TX</div><div class="lsub">Real estate agency · Cypress</div></div>
+<a class="call" href="tel:+12818616199">(281) 861-6199</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Brianna Bischoff, Realtor" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Brianna Bischoff, Realtor</div><div class="lsub">Real estate agent · Cypress</div></div>
+<a class="call" href="tel:+12818415015">(281) 841-5015</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="O&#x27;Hara &amp; Company Real Estate" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">O&#x27;Hara &amp; Company Real Estate</div><div class="lsub">Real estate agency · Cypress</div><a class="mail" href="mailto:ohara@oharasellstexas.com">ohara@oharasellstexas.com</a></div>
+<a class="call" href="tel:+12813733393">(281) 373-3393</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Gordon Ford Properties" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Gordon Ford Properties</div><div class="lsub">Real estate agency · Cypress</div><a class="mail" href="mailto:Sara@comehometocypress.com">Sara@comehometocypress.com</a></div>
+<a class="call" href="tel:+12813748484">(281) 374-8484</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Velvet Harris Group - Better Homes &amp; Gardens Real Estate Gary Greene" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Velvet Harris Group - Better Homes &amp; Gardens Real Estate Gary Greene</div><div class="lsub">Real estate agent · Cypress</div></div>
+<a class="call" href="tel:+18324445652">(832) 444-5652</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="David Jordan Real Estate Group" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">David Jordan Real Estate Group</div><div class="lsub">Real estate agent · Cypress</div></div>
+<a class="call" href="tel:+18328787844">(832) 878-7844</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="James Hilliard Jr - Real Estate Agent" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">James Hilliard Jr - Real Estate Agent</div><div class="lsub">Real estate agent · Cypress</div></div>
+<a class="call" href="tel:+13467246947">(346) 724-6947</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Gebora Realty Team" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Gebora Realty Team</div><div class="lsub">Real estate agent · Cypress</div></div>
+<a class="call" href="tel:+12815434309">(281) 543-4309</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Jason Ferris - Real Estate Agent" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Jason Ferris - Real Estate Agent</div><div class="lsub">Real estate agent · Cypress</div></div>
+<a class="call" href="tel:+12815168929">(281) 516-8929</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Lindsey Darnell, REALTOR®" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Lindsey Darnell, REALTOR®</div><div class="lsub">Real estate agency · Cypress</div></div>
+<a class="call" href="tel:+12819236101">(281) 923-6101</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Heidi Hancock-Realtor®" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Heidi Hancock-Realtor®</div><div class="lsub">Real estate agency · Cypress</div></div>
+<a class="call" href="tel:+18327466426">(832) 746-6426</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Wayne Gutman Real Estate Agent" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Wayne Gutman Real Estate Agent</div><div class="lsub">Real estate agency</div></div>
+<a class="call" href="tel:+18327093439">(832) 709-3439</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Connell Team Realty" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Connell Team Realty</div><div class="lsub">Real estate agency · Cypress</div></div>
+<a class="call" href="tel:+18327548560">(832) 754-8560</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div><div class="lead" data-id="Homes A Field Of Dreams: Tommy Smith" data-tier="4">
+<div class="lrow"><button class="chk" aria-label="mark done"></button>
+<div class="linfo"><div class="lname">Homes A Field Of Dreams: Tommy Smith</div><div class="lsub">Real estate agent · Cypress</div></div>
+<a class="call" href="tel:+17137038142">(713) 703-8142</a></div>
+<div class="outcome"><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button></div>
+<textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
+</div>
+</section>
+<textarea id="out" readonly></textarea>
+</main>
+<footer><div id="stat"><b id="dn">0</b> called &middot; <b id="hot">0</b> interested</div><button id="exp">Copy results</button><button id="rst">Reset</button></footer>
+<script>
+var KEY='puretek-callsheet-v2';
+var state={};
+try{ state=JSON.parse(localStorage.getItem(KEY)||'{}') }catch(e){ state={} }
+
+function save(){
+  try{ localStorage.setItem(KEY,JSON.stringify(state));
+    var s=document.getElementById('saved'); s.textContent='saved '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+  }catch(e){ document.getElementById('saved').textContent='NOT SAVING — copy your results'; }
+}
+function paint(card){
+  var id=card.dataset.id, st=state[id]||{};
+  card.classList.toggle('done',!!st.done);
+  card.classList.toggle('hot',st.outcome==='INTERESTED');
+  card.classList.toggle('touched',!!(st.done||st.outcome||st.note));
+  card.querySelectorAll('.outcome button').forEach(function(b){ b.classList.toggle('sel',st.outcome===b.dataset.o) });
+  var n=card.querySelector('.note'); if(n.value!==(st.note||'')) n.value=st.note||'';
+}
+function tally(){
+  var d=0,h=0;
+  for(var k in state){ if(state[k].done) d++; if(state[k].outcome==='INTERESTED') h++; }
+  document.getElementById('dn').textContent=d;
+  document.getElementById('hot').textContent=h;
+  document.querySelectorAll('.cnt').forEach(function(c){
+    var t=c.dataset.tier, all=document.querySelectorAll('.lead[data-tier="'+t+'"]'), done=0;
+    all.forEach(function(x){ if((state[x.dataset.id]||{}).done) done++ });
+    c.textContent=done+'/'+all.length;
+  });
+}
+document.querySelectorAll('.lead').forEach(function(card){
+  var id=card.dataset.id;
+  card.querySelector('.chk').addEventListener('click',function(){
+    state[id]=state[id]||{}; state[id].done=!state[id].done;
+    paint(card); tally(); save();
+  });
+  card.querySelectorAll('.outcome button').forEach(function(b){
+    b.addEventListener('click',function(){
+      state[id]=state[id]||{};
+      if(state[id].outcome===b.dataset.o){ state[id].outcome=null }
+      else { state[id].outcome=b.dataset.o; state[id].done=true; state[id].at=new Date().toLocaleString(); }
+      paint(card); tally(); save();
+    });
+  });
+  card.querySelector('.note').addEventListener('input',function(){
+    state[id]=state[id]||{}; state[id].note=this.value; card.classList.add('touched'); tally(); save();
+  });
+  paint(card);
+});
+tally();
+if(Object.keys(state).length) document.getElementById('saved').textContent='restored '+Object.keys(state).length+' logged';
+
+document.getElementById('exp').addEventListener('click',function(){
+  var o=document.getElementById('out'), lines=[];
+  document.querySelectorAll('.lead').forEach(function(c){
+    var st=state[c.dataset.id]; if(!st) return;
+    if(!st.done && !st.outcome && !st.note) return;
+    lines.push(c.dataset.id+' | '+(st.outcome||'called')+(st.note?' | '+st.note.replace(/\n/g,' '):'') );
+  });
+  var txt=lines.length? 'PURETEK CALL LOG '+new Date().toLocaleDateString()+'\n'+lines.join('\n') : 'Nothing logged yet.';
+  o.value=txt; o.style.display='block';
+  o.select(); o.setSelectionRange(0,99999);
+  try{ if(navigator.clipboard){ navigator.clipboard.writeText(txt); this.textContent='Copied ✓'; var b=this; setTimeout(function(){b.textContent='Copy results'},2000); } else { document.execCommand('copy'); } }catch(e){}
+  o.scrollIntoView({behavior:'smooth',block:'center'});
+});
+document.getElementById('rst').addEventListener('click',function(){
+  if(!confirm('Clear every logged call and note? This cannot be undone.')) return;
+  state={}; localStorage.removeItem(KEY);
+  document.querySelectorAll('.lead').forEach(paint); tally();
+  document.getElementById('saved').textContent='cleared';
+});
+</script></body></html>
