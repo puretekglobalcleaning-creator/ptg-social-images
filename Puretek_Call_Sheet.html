@@ -1,4 +1,13 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Puretek Commercial Call Sheet",
+  "schemaVersion": 1,
+  "description": "Puretek Global Cleaning commercial call sheet \u2014 204 leads across Katy/Cypress/Sugar Land/NW Houston, tiered contractors \u2192 property mgmt \u2192 law \u2192 salons \u2192 realtors. Single-operator sheet for Donta: tap-to-call, pre-written text per tier, opener + voicemail scripts, voicemail counter, outcome logging, exportable results. Opens on a Follow-up section that pulls every already-worked lead to the top and groups it by next action (send pricing / bad number / requalify / second call / call back / texted-never-reached). Donta's 8/24 log for 54 leads is baked in as a shared baseline that merges into any browser once, without overwriting local logging.",
+  "mcpTools": [],
+  "mcpServerNames": []
+}
+</script>
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,71 +65,104 @@ footer{position:fixed;bottom:0;left:0;right:0;background:#111114;border-top:1px 
 footer button{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:9px 12px;border-radius:8px;font-size:12.5px;font-weight:600}
 #rst{border-color:#4a2222;color:#a06060;padding:9px 10px}
 #out{width:100%;height:200px;background:#0b0b0c;color:var(--txt);border:1px solid var(--gold);border-radius:8px;padding:10px;font:12px/1.45 ui-monospace,Menlo,monospace;margin:14px 0 0;display:none}
+
+.wkb{display:inline-block;margin-left:7px;font-size:9.5px;font-weight:800;letter-spacing:.07em;padding:2px 7px;border-radius:999px;background:rgba(150,150,160,.16);color:#a9a9b4;border:1px solid rgba(150,150,160,.32)}
+
+/* ---- v5 follow-up ---- */
+#fu{margin:0 0 6px}
+#fu.empty{display:none}
+#fuh{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin:18px 4px 10px;display:flex;align-items:center;gap:8px}
+#futog{margin-left:auto;background:transparent;border:1px solid var(--line);color:var(--mut);border-radius:999px;padding:4px 11px;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:none}
+#fu.col #fugroups{display:none}
+.fug{margin:0 0 16px}
+.fug.hide{display:none}
+.fugh{display:flex;align-items:baseline;gap:8px;margin:0 4px 7px}
+.fugt{font-size:12.5px;font-weight:800;letter-spacing:.04em;color:var(--txt)}
+.fugn{color:var(--mut);font-size:11px;border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.fugd{color:var(--mut);font-size:11.5px;margin:0 4px 9px;line-height:1.4}
+.fug .lead{opacity:1}
+.fug .lead.done{opacity:1}
+.fugb{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:2px;vertical-align:middle}
+.fug-hot .fugb{background:#3fb950}.fug-hot .fugt{color:#7ee08f}
+.fug-dead .fugb{background:#8c3b48}.fug-dead .fugt{color:#d98a96}
+.fug-vm .fugb{background:#d4af37}
+.fug-back .fugb{background:#c98a3a}
+.fug-txt .fugb{background:#7ab6ff}
+.fug-no .fugb{background:#5a5a63}.fug-no .fugt{color:#9a9aa4}
+.tlab{display:inline-block;margin-left:7px;font-size:9.5px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:999px;background:rgba(120,120,132,.14);color:#9a9aa4;border:1px solid rgba(120,120,132,.3)}
+.fun{color:var(--mut);font-size:11.5px;margin:0 4px 14px;line-height:1.45;padding:9px 11px;background:#121216;border:1px solid var(--line);border-left:2px solid #3a3a42;border-radius:8px}
+.tier.done-all > .lead{display:none}
+.emptytier{color:var(--mut);font-size:12.5px;padding:11px 13px;background:var(--card);border:1px dashed var(--line);border-radius:12px;margin-bottom:9px}
 </style></head><body>
 <header>
 <h1>Puretek Global Cleaning &mdash; <span>Call Sheet</span></h1>
-<div class="sub">204 leads &middot; Katy / Cypress / Sugar Land / NW Houston &middot; <span id="saved">saves automatically</span></div>
-<div class="bar"><a href="#c1">Contractors</a><a href="#c2">Contractors +email</a><a href="#t1">Property Mgmt</a><a href="#t2">Law</a><a href="#t3">Salons</a><a href="#t4">Realtors</a></div>
+<div class="sub">204 leads &middot; 54 worked 8/24 &middot; 150 still cold &middot; <span id="saved">saves automatically</span></div>
+<div class="bar"><a href="#fu">★ Follow-up</a><a href="#c1">Contractors</a><a href="#c2">Contractors +email</a><a href="#t1">Property Mgmt</a><a href="#t2">Law</a><a href="#t3">Salons</a><a href="#t4">Realtors</a></div>
 </header>
 <main>
+<section id="fu" class="empty">
+<div id="fuh"><span>Follow-up &mdash; already worked</span><span class="cnt" id="fucnt">0</span><button id="futog">hide</button></div>
+<div class="fun">Everyone you&rsquo;ve already worked, pulled out of the cold tiers and sorted by what they need next. The tier lists below now show only people nobody has reached yet. Log an outcome anywhere and it re-sorts the next time you open the sheet.</div>
+<div id="fugroups"></div>
+</section>
 <section class="tier" id="c1">
 <h2>Tier 1 &mdash; Contractors &amp; Builders <span class="cnt" data-tier="C1">0/78</span></h2>
 <div class="script">&ldquo;Hi, this is Donta with Puretek Global Cleaning. We handle post-construction and final cleans &mdash; the punch-out clean right before you hand over the keys. Who takes care of that on your jobs?&rdquo;<br><br><b style="color:#d4af37">If it goes to voicemail:</b> &ldquo;Hi, Donta with Puretek Global Cleaning &mdash; we do post-construction and final cleans for builders and remodelers around Katy, Cypress and Sugar Land. Call me back at 832-380-1738 and I&rsquo;ll get you a per-square-foot number. Thanks.&rdquo; Then tap <b>Left voicemail</b>.</div>
-<div class="lead" data-id="ALL-TEX Home Buyers" data-tier="C1">
+<div class="lead" data-id="ALL-TEX Home Buyers" data-tier="C1" data-base="{&quot;outcome&quot;: &quot;left voicemail&quot;, &quot;vm&quot;: 1, &quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">ALL-TEX Home Buyers</div><div class="lsub">Real estate developer &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+18328605053">(832) 860-5053</a><a class="txt" href="sms:+18328605053?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Adavis Group Home Construction" data-tier="C1">
+</div><div class="lead" data-id="Adavis Group Home Construction" data-tier="C1" data-base="{&quot;outcome&quot;: &quot;left voicemail&quot;, &quot;vm&quot;: 1, &quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Adavis Group Home Construction</div><div class="lsub">Construction company &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+13463797935">(346) 379-7935</a><a class="txt" href="sms:+13463797935?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Anton The Handyman" data-tier="C1">
+</div><div class="lead" data-id="Anton The Handyman" data-tier="C1" data-base="{&quot;outcome&quot;: &quot;left voicemail&quot;, &quot;vm&quot;: 1, &quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Anton The Handyman</div><div class="lsub">Handyman/Handywoman/Handyperson &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+13468507315">(346) 850-7315</a><a class="txt" href="sms:+13468507315?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Azalea Trails by Tri Pointe Homes" data-tier="C1">
+</div><div class="lead" data-id="Azalea Trails by Tri Pointe Homes" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Azalea Trails by Tri Pointe Homes</div><div class="lsub">Home builder &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+13462660915">(346) 266-0915</a><a class="txt" href="sms:+13462660915?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Beraht Construction LLC" data-tier="C1">
+</div><div class="lead" data-id="Beraht Construction LLC" data-tier="C1" data-base="{&quot;outcome&quot;: &quot;no answer&quot;, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Beraht Construction LLC</div><div class="lsub">Construction company &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+12817694271">(281) 769-4271</a><a class="txt" href="sms:+12817694271?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Caliber Construction Group" data-tier="C1">
+</div><div class="lead" data-id="Caliber Construction Group" data-tier="C1" data-base="{&quot;outcome&quot;: &quot;no answer&quot;, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Caliber Construction Group</div><div class="lsub">Remodeler &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+12818900699">(281) 890-0699</a><a class="txt" href="sms:+12818900699?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="CyTex Builders LLC" data-tier="C1">
+</div><div class="lead" data-id="CyTex Builders LLC" data-tier="C1" data-base="{&quot;outcome&quot;: &quot;INTERESTED&quot;, &quot;texted&quot;: true, &quot;note&quot;: &quot;Asked about pricing, said he would text his info&quot;, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">CyTex Builders LLC</div><div class="lsub">Home builder &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+18322476806">(832) 247-6806</a><a class="txt" href="sms:+18322476806?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Cypress Remodeling Company" data-tier="C1">
+</div><div class="lead" data-id="Cypress Remodeling Company" data-tier="C1" data-base="{&quot;outcome&quot;: &quot;no answer&quot;, &quot;note&quot;: &quot;Non working number&quot;, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Cypress Remodeling Company</div><div class="lsub">Remodeler &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+18323048152">(832) 304-8152</a><a class="txt" href="sms:+18323048152?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Decks Plus" data-tier="C1">
+</div><div class="lead" data-id="Decks Plus" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Decks Plus</div><div class="lsub">Contractor &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+12814637748">(281) 463-7748</a><a class="txt" href="sms:+12814637748?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Designs by Jenny" data-tier="C1">
+</div><div class="lead" data-id="Designs by Jenny" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Designs by Jenny</div><div class="lsub">Remodeler &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+18326800111">(832) 680-0111</a><a class="txt" href="sms:+18326800111?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -150,25 +192,25 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+12814367356">(281) 436-7356</a><a class="txt" href="sms:+12814367356?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="H-Towne &amp; Around Remodelers Inc." data-tier="C1">
+</div><div class="lead" data-id="H-Towne &amp; Around Remodelers Inc." data-tier="C1" data-base="{&quot;outcome&quot;: &quot;not interested&quot;, &quot;texted&quot;: true, &quot;note&quot;: &quot;Said his crew does it but he&#x27;ll keep our info, told him I&#x27;ll text our info&quot;, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">H-Towne &amp; Around Remodelers Inc.</div><div class="lsub">General contractor &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+12814773400">(281) 477-3400</a><a class="txt" href="sms:+12814773400?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Infinity Classic Homes" data-tier="C1">
+</div><div class="lead" data-id="Infinity Classic Homes" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Infinity Classic Homes</div><div class="lsub">Home builder &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+12812134063">(281) 213-4063</a><a class="txt" href="sms:+12812134063?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Kingdom Renovations HTX" data-tier="C1">
+</div><div class="lead" data-id="Kingdom Renovations HTX" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Kingdom Renovations HTX</div><div class="lsub">Contractor &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+15164487221">(516) 448-7221</a><a class="txt" href="sms:+15164487221?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Kyle Roth Construction - KRC - Home Remodeling" data-tier="C1">
+</div><div class="lead" data-id="Kyle Roth Construction - KRC - Home Remodeling" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Kyle Roth Construction - KRC - Home Remodeling</div><div class="lsub">General contractor &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+18325663732">(832) 566-3732</a><a class="txt" href="sms:+18325663732?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -180,31 +222,31 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+12817459564">(281) 745-9564</a><a class="txt" href="sms:+12817459564?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Mercado Construction Outdoor Patio LLC" data-tier="C1">
+</div><div class="lead" data-id="Mercado Construction Outdoor Patio LLC" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Mercado Construction Outdoor Patio LLC</div><div class="lsub">Construction company &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+18326226433">(832) 622-6433</a><a class="txt" href="sms:+18326226433?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Partners in Building- Towne Lake" data-tier="C1">
+</div><div class="lead" data-id="Partners in Building- Towne Lake" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Partners in Building- Towne Lake</div><div class="lsub">Custom home builder &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+17134521301">(713) 452-1301</a><a class="txt" href="sms:+17134521301?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="SMB GROUP, LLC" data-tier="C1">
+</div><div class="lead" data-id="SMB GROUP, LLC" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">SMB GROUP, LLC</div><div class="lsub">General contractor &middot; Cypress</div></div>
 <div class="acts"><a class="call" href="tel:+12812720786">(281) 272-0786</a><a class="txt" href="sms:+12812720786?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Allstate Roofing &amp; Construction - General Contractor" data-tier="C1" data-bounced="1">
+</div><div class="lead" data-id="Allstate Roofing &amp; Construction - General Contractor" data-tier="C1" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Allstate Roofing &amp; Construction - General Contractor</div><div class="lsub">General contractor &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+12813474000">(281) 347-4000</a><a class="txt" href="sms:+12813474000?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Avila Construction" data-tier="C1">
+</div><div class="lead" data-id="Avila Construction" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Avila Construction</div><div class="lsub">Construction company &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+12813846819">(281) 384-6819</a><a class="txt" href="sms:+12813846819?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -216,7 +258,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+18325019040">(832) 501-9040</a><a class="txt" href="sms:+18325019040?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Drymalla Construction Co Inc" data-tier="C1">
+</div><div class="lead" data-id="Drymalla Construction Co Inc" data-tier="C1" data-base="{&quot;outcome&quot;: &quot;no answer&quot;, &quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Drymalla Construction Co Inc</div><div class="lsub">General contractor &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+19797325731">(979) 732-5731</a><a class="txt" href="sms:+19797325731?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -228,19 +270,19 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+13465509307">(346) 550-9307</a><a class="txt" href="sms:+13465509307?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Hamilton Re-pair Service Co LLC" data-tier="C1">
+</div><div class="lead" data-id="Hamilton Re-pair Service Co LLC" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Hamilton Re-pair Service Co LLC</div><div class="lsub">Home builder &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+12813560585">(281) 356-0585</a><a class="txt" href="sms:+12813560585?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Hou-Tex Construction Inc." data-tier="C1">
+</div><div class="lead" data-id="Hou-Tex Construction Inc." data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Hou-Tex Construction Inc.</div><div class="lsub">General contractor &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+12816575014">(281) 657-5014</a><a class="txt" href="sms:+12816575014?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="JS2 PM LLC" data-tier="C1" data-bounced="1">
+</div><div class="lead" data-id="JS2 PM LLC" data-tier="C1" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">JS2 PM LLC</div><div class="lsub">Construction company &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+18324371562">(832) 437-1562</a><a class="txt" href="sms:+18324371562?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -252,7 +294,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+17135646817">(713) 564-6817</a><a class="txt" href="sms:+17135646817?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="MC Construction, LLC" data-tier="C1" data-bounced="1">
+</div><div class="lead" data-id="MC Construction, LLC" data-tier="C1" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">MC Construction, LLC</div><div class="lsub">Construction company &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+12813918090">(281) 391-8090</a><a class="txt" href="sms:+12813918090?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -270,13 +312,13 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+12817692226">(281) 769-2226</a><a class="txt" href="sms:+12817692226?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Steadfast Interests LLC" data-tier="C1">
+</div><div class="lead" data-id="Steadfast Interests LLC" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Steadfast Interests LLC</div><div class="lsub">Real estate developer &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+12812058118">(281) 205-8118</a><a class="txt" href="sms:+12812058118?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="The USA Home Improvement" data-tier="C1">
+</div><div class="lead" data-id="The USA Home Improvement" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">The USA Home Improvement</div><div class="lsub">Contractor &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+17132054962">(713) 205-4962</a><a class="txt" href="sms:+17132054962?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -294,7 +336,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+18324371396">(832) 437-1396</a><a class="txt" href="sms:+18324371396?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="myhippiedecor" data-tier="C1">
+</div><div class="lead" data-id="myhippiedecor" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">myhippiedecor</div><div class="lsub">Custom home builder &middot; Katy</div></div>
 <div class="acts"><a class="call" href="tel:+18327910230">(832) 791-0230</a><a class="txt" href="sms:+18327910230?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -306,13 +348,13 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+18323044492">(832) 304-4492</a><a class="txt" href="sms:+18323044492?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="ABI Construction" data-tier="C1" data-bounced="1">
+</div><div class="lead" data-id="ABI Construction" data-tier="C1" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">ABI Construction</div><div class="lsub">Contractor &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+12817838180">(281) 783-8180</a><a class="txt" href="sms:+12817838180?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Ambassador Building Group" data-tier="C1">
+</div><div class="lead" data-id="Ambassador Building Group" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Ambassador Building Group</div><div class="lsub">General contractor &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+18326056400">(832) 605-6400</a><a class="txt" href="sms:+18326056400?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -324,7 +366,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+17133250285">(713) 325-0285</a><a class="txt" href="sms:+17133250285?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="CertaPro Painters of Central Fort Bend, TX" data-tier="C1" data-bounced="1">
+</div><div class="lead" data-id="CertaPro Painters of Central Fort Bend, TX" data-tier="C1" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">CertaPro Painters of Central Fort Bend, TX</div><div class="lsub">Painter &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+12819653401">(281) 965-3401</a><a class="txt" href="sms:+12819653401?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -348,49 +390,49 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+18322808497">(832) 280-8497</a><a class="txt" href="sms:+18322808497?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Handyman Dan" data-tier="C1">
+</div><div class="lead" data-id="Handyman Dan" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Handyman Dan</div><div class="lsub">Handyman/Handywoman/Handyperson &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+12814146373">(281) 414-6373</a><a class="txt" href="sms:+12814146373?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Hitech Construction &amp; Design" data-tier="C1">
+</div><div class="lead" data-id="Hitech Construction &amp; Design" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Hitech Construction &amp; Design</div><div class="lsub">Construction company &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+17135301384">(713) 530-1384</a><a class="txt" href="sms:+17135301384?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Home Builders Sugar Land" data-tier="C1">
+</div><div class="lead" data-id="Home Builders Sugar Land" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Home Builders Sugar Land</div><div class="lsub">Home builder &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+17073398181">(707) 339-8181</a><a class="txt" href="sms:+17073398181?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Home Stream Works" data-tier="C1">
+</div><div class="lead" data-id="Home Stream Works" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Home Stream Works</div><div class="lsub">Home builder &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+19128187749">(912) 818-7749</a><a class="txt" href="sms:+19128187749?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Majestic Developers" data-tier="C1">
+</div><div class="lead" data-id="Majestic Developers" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Majestic Developers</div><div class="lsub">Real estate developer &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+12819751777">(281) 975-1777</a><a class="txt" href="sms:+12819751777?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Newbill Painting and Construction" data-tier="C1">
+</div><div class="lead" data-id="Newbill Painting and Construction" data-tier="C1" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Newbill Painting and Construction</div><div class="lsub">General contractor &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+18323483920">(832) 348-3920</a><a class="txt" href="sms:+18323483920?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Pierce Built Homes" data-tier="C1" data-bounced="1">
+</div><div class="lead" data-id="Pierce Built Homes" data-tier="C1" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Pierce Built Homes</div><div class="lsub">Contractor &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+12812018711">(281) 201-8711</a><a class="txt" href="sms:+12812018711?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Riverstone, Avalon 70&#x27; Luxury Homes" data-tier="C1" data-bounced="1">
+</div><div class="lead" data-id="Riverstone, Avalon 70&#x27; Luxury Homes" data-tier="C1" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Riverstone, Avalon 70&#x27; Luxury Homes</div><div class="lsub">Home builder &middot; Sugar Land</div></div>
 <div class="acts"><a class="call" href="tel:+12812013183">(281) 201-3183</a><a class="txt" href="sms:+12812013183?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -538,7 +580,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 </section><section class="tier" id="c2">
 <h2>Tier 2 &mdash; Contractors (also on email) <span class="cnt" data-tier="C2">0/63</span></h2>
 <div class="script">These 63 have an email address, so the daily automation is already emailing them &mdash; but 232 cold emails have produced zero replies, so a call still beats the inbox. Same opener as Tier 1.</div>
-<div class="lead" data-id="AIM Contracting Services, LLC." data-tier="C2">
+<div class="lead" data-id="AIM Contracting Services, LLC." data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">AIM Contracting Services, LLC.</div><div class="lsub">General contractor &middot; Cypress</div><a class="mail" href="mailto:info@aimcontractingservices.com">info@aimcontractingservices.com</a></div>
 <div class="acts"><a class="call" href="tel:+17135306505">(713) 530-6505</a><a class="txt" href="sms:+17135306505?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -550,7 +592,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+12817809990">(281) 780-9990</a><a class="txt" href="sms:+12817809990?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Alliance Services Of Texas, LLC" data-tier="C2" data-bounced="1">
+</div><div class="lead" data-id="Alliance Services Of Texas, LLC" data-tier="C2" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Alliance Services Of Texas, LLC</div><div class="lsub">General contractor &middot; Cypress</div><a class="mail" href="mailto:info@asotx.com">info@asotx.com</a></div>
 <div class="acts"><a class="call" href="tel:+18322995001">(832) 299-5001</a><a class="txt" href="sms:+18322995001?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -568,7 +610,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+13464472212">(346) 447-2212</a><a class="txt" href="sms:+13464472212?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Cypress Handyman" data-tier="C2">
+</div><div class="lead" data-id="Cypress Handyman" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Cypress Handyman</div><div class="lsub">Handyman/Handywoman/Handyperson &middot; Cypress</div><a class="mail" href="mailto:handymancypresstx@gmail.com">handymancypresstx@gmail.com</a></div>
 <div class="acts"><a class="call" href="tel:+18326743920">(832) 674-3920</a><a class="txt" href="sms:+18326743920?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -580,7 +622,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+18327162440">(832) 716-2440</a><a class="txt" href="sms:+18327162440?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="FlipSide Construction Co." data-tier="C2">
+</div><div class="lead" data-id="FlipSide Construction Co." data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">FlipSide Construction Co.</div><div class="lsub">Home builder &middot; Cypress</div><a class="mail" href="mailto:ptrevino93@gmail.com">ptrevino93@gmail.com</a></div>
 <div class="acts"><a class="call" href="tel:+18325511706">(832) 551-1706</a><a class="txt" href="sms:+18325511706?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -646,7 +688,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+17134580632">(713) 458-0632</a><a class="txt" href="sms:+17134580632?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="State Contractors LLC" data-tier="C2" data-bounced="1">
+</div><div class="lead" data-id="State Contractors LLC" data-tier="C2" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">State Contractors LLC</div><div class="lsub">Construction company &middot; Cypress</div><a class="mail" href="mailto:EyalDanieliStudio@Gmail.com">EyalDanieliStudio@Gmail.com</a></div>
 <div class="acts"><a class="call" href="tel:+17132234640">(713) 223-4640</a><a class="txt" href="sms:+17132234640?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -658,7 +700,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+18322804432">(832) 280-4432</a><a class="txt" href="sms:+18322804432?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Towne Lake Construction" data-tier="C2">
+</div><div class="lead" data-id="Towne Lake Construction" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Towne Lake Construction</div><div class="lsub">Construction company &middot; Cypress</div><a class="mail" href="mailto:info@TowneLakeConstruction.com">info@TowneLakeConstruction.com</a></div>
 <div class="acts"><a class="call" href="tel:+18326842567">(832) 684-2567</a><a class="txt" href="sms:+18326842567?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -688,7 +730,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+12815740202">(281) 574-0202</a><a class="txt" href="sms:+12815740202?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Five Star Remodeling and Design" data-tier="C2" data-bounced="1">
+</div><div class="lead" data-id="Five Star Remodeling and Design" data-tier="C2" data-base="{&quot;bounce&quot;: true, &quot;texted&quot;: true, &quot;done&quot;: true}" data-bounced="1">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Five Star Remodeling and Design</div><div class="lsub">General contractor &middot; Katy</div><a class="mail" href="mailto:joe@fivestarremodelinganddesign.com">joe@fivestarremodelinganddesign.com</a></div>
 <div class="acts"><a class="call" href="tel:+12815509110">(281) 550-9110</a><a class="txt" href="sms:+12815509110?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -724,7 +766,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+18327575444">(832) 757-5444</a><a class="txt" href="sms:+18327575444?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Soleil Design Houston" data-tier="C2">
+</div><div class="lead" data-id="Soleil Design Houston" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Soleil Design Houston</div><div class="lsub">Interior designer &middot; Katy</div><a class="mail" href="mailto:pthallemer@gmail.com">pthallemer@gmail.com</a></div>
 <div class="acts"><a class="call" href="tel:+12818910269">(281) 891-0269</a><a class="txt" href="sms:+12818910269?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -784,19 +826,19 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+18326130064">(832) 613-0064</a><a class="txt" href="sms:+18326130064?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Ak.homeimprovement LLC" data-tier="C2">
+</div><div class="lead" data-id="Ak.homeimprovement LLC" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Ak.homeimprovement LLC</div><div class="lsub">Contractor &middot; Sugar Land</div><a class="mail" href="mailto:Ak.homeimprovementllc.co@gmail.com">Ak.homeimprovementllc.co@gmail.com</a></div>
 <div class="acts"><a class="call" href="tel:+18325777053">(832) 577-7053</a><a class="txt" href="sms:+18325777053?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Branda Construction" data-tier="C2">
+</div><div class="lead" data-id="Branda Construction" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Branda Construction</div><div class="lsub">Contractor &middot; Sugar Land</div><a class="mail" href="mailto:Brandaconstruction@yahoo.com">Brandaconstruction@yahoo.com</a></div>
 <div class="acts"><a class="call" href="tel:+12819603604">(281) 960-3604</a><a class="txt" href="sms:+12819603604?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="CONSTRUCAB LLC" data-tier="C2">
+</div><div class="lead" data-id="CONSTRUCAB LLC" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">CONSTRUCAB LLC</div><div class="lsub">Real estate developer &middot; Sugar Land</div><a class="mail" href="mailto:Edgar@construcabllc.com">Edgar@construcabllc.com</a></div>
 <div class="acts"><a class="call" href="tel:+17135301478">(713) 530-1478</a><a class="txt" href="sms:+17135301478?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -820,7 +862,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+17135301610">(713) 530-1610</a><a class="txt" href="sms:+17135301610?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="DN Expert Remodeling LLC" data-tier="C2">
+</div><div class="lead" data-id="DN Expert Remodeling LLC" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">DN Expert Remodeling LLC</div><div class="lsub">General contractor &middot; Sugar Land</div><a class="mail" href="mailto:dnremodeling1981@gmail.com">dnremodeling1981@gmail.com</a></div>
 <div class="acts"><a class="call" href="tel:+18323804230">(832) 380-4230</a><a class="txt" href="sms:+18323804230?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -838,19 +880,19 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+12812650137">(281) 265-0137</a><a class="txt" href="sms:+12812650137?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Hammonds Construction" data-tier="C2">
+</div><div class="lead" data-id="Hammonds Construction" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Hammonds Construction</div><div class="lsub">Contractor &middot; Sugar Land</div><a class="mail" href="mailto:chammonds@hammonds-construction.com">chammonds@hammonds-construction.com</a></div>
 <div class="acts"><a class="call" href="tel:+13463092726">(346) 309-2726</a><a class="txt" href="sms:+13463092726?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="Howell Innovations" data-tier="C2">
+</div><div class="lead" data-id="Howell Innovations" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">Howell Innovations</div><div class="lsub">Remodeler &middot; Sugar Land</div><a class="mail" href="mailto:chuck@howellinnovations.com">chuck@howellinnovations.com</a></div>
 <div class="acts"><a class="call" href="tel:+18323144506">(832) 314-4506</a><a class="txt" href="sms:+18323144506?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="J &amp; E Painting LLC" data-tier="C2">
+</div><div class="lead" data-id="J &amp; E Painting LLC" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">J &amp; E Painting LLC</div><div class="lsub">Painter &middot; Sugar Land</div><a class="mail" href="mailto:ericayr8@gmail.com">ericayr8@gmail.com</a></div>
 <div class="acts"><a class="call" href="tel:+12819672617">(281) 967-2617</a><a class="txt" href="sms:+12819672617?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -868,7 +910,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 <div class="acts"><a class="call" href="tel:+12819809888">(281) 980-9888</a><a class="txt" href="sms:+12819809888?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
 <div class="outcome"><button class="vmbtn" data-o="left voicemail">&#128222; Left voicemail</button><button data-o="no answer">No answer</button><button data-o="call back">Call back</button><button data-o="not interested">Not interested</button><button data-o="INTERESTED">Interested &#9733;</button><button class="bncbtn" data-o="text bounced">&#128243; Text bounced &mdash; landline</button></div>
 <textarea class="note" rows="2" placeholder="Notes — who you spoke to, what they said…"></textarea>
-</div><div class="lead" data-id="MCR Construction" data-tier="C2">
+</div><div class="lead" data-id="MCR Construction" data-tier="C2" data-base="{&quot;texted&quot;: true, &quot;done&quot;: true}">
 <div class="lrow"><button class="chk" aria-label="mark done"></button>
 <div class="linfo"><div class="lname">MCR Construction</div><div class="lsub">Construction company &middot; Sugar Land</div><a class="mail" href="mailto:Mario.Rios@mcrconstruction.net">Mario.Rios@mcrconstruction.net</a></div>
 <div class="acts"><a class="call" href="tel:+12812127576">(281) 212-7576</a><a class="txt" href="sms:+12812127576?&body=Hi%20%E2%80%94%20Donta%20with%20Puretek%20Global%20Cleaning.%20We%20specialize%20in%20post-construction%20and%20final%20cleans%20for%20builders%20and%20remodelers%20around%20Katy%2C%20Cypress%2C%20Sugar%20Land%20and%20the%20Houston%20metro%20area.%0A%0A%0A%E2%AD%90%205-star%20rated%20on%20Google%20across%2047%2B%20reviews.%20Insured%2C%20licensed%20and%20fast%20turnarounds.%0A%0A%0AWant%20me%20to%20send%20pricing%3F%0A%0A%0Awww.puretekglobal.net">Text</a></div></div>
@@ -1316,7 +1358,7 @@ footer button{background:transparent;border:1px solid var(--gold);color:var(--go
 </section>
 <textarea id="out" readonly></textarea>
 </main>
-<footer><div id="stat"><b id="dn">0</b> called &middot; <b id="vmc">0</b> VMs &middot; <b id="txd">0</b> texted &middot; <b id="bnc">0</b> bounced &middot; <b id="hot">0</b> interested</div><button id="exp">Copy results</button><button id="rst">Reset</button></footer>
+<footer><div id="stat"><b id="dn">0</b> called &middot; <b id="vmc">0</b> VMs &middot; <b id="txd">0</b> texted &middot; <b id="bnc">0</b> bounced &middot; <b id="hot">0</b> interested &middot; <b id="left">0</b> left</div><button id="exp">Copy results</button><button id="rst">Reset</button></footer>
 <script>
 var KEY='puretek-callsheet-v2';
 var state={};
@@ -1414,10 +1456,15 @@ document.getElementById('exp').addEventListener('click',function(){
   o.scrollIntoView({behavior:'smooth',block:'center'});
 });
 document.getElementById('rst').addEventListener('click',function(){
-  if(!confirm('Clear every logged call and note? This cannot be undone.')) return;
-  state={}; localStorage.removeItem(KEY);
+  if(!confirm('Clear your logged calls and notes? The 54 leads already worked on 8/21 stay marked. This cannot be undone.')) return;
+  state={};
+  document.querySelectorAll('.lead[data-base]').forEach(function(c){
+    var b; try{ b=JSON.parse(c.dataset.base) }catch(e){ return }
+    state[c.dataset.id]=JSON.parse(JSON.stringify(b));
+  });
+  try{ localStorage.setItem(KEY,JSON.stringify(state)) }catch(e){}
   document.querySelectorAll('.lead').forEach(paint); tally();
-  document.getElementById('saved').textContent='cleared';
+  document.getElementById('saved').textContent='reset to the 8/21 baseline';
 });
 
 (function(){
@@ -1456,4 +1503,147 @@ document.getElementById('rst').addEventListener('click',function(){
   try{ localStorage.setItem(MK,'1') }catch(e){}
   document.querySelectorAll('.lead').forEach(paint); tally(); save();
 })();
-</script></body></html>
+</script><script>
+/* ---- v6 2026-08-26: single operator, shared baseline, follow-up triage ---- */
+
+/* shared baseline: merge the 8/24 call log in once per browser, non-destructively */
+(function(){
+  var BK='puretek-base-20260824-r2';
+  var applied=false;
+  try{ applied=!!localStorage.getItem(BK) }catch(e){}
+  if(!applied){
+    document.querySelectorAll('.lead[data-base]').forEach(function(c){
+      var b; try{ b=JSON.parse(c.dataset.base) }catch(e){ return }
+      var id=c.dataset.id, st=state[id]=state[id]||{};
+      for(var k in b){ if(st[k]===undefined||st[k]===null||st[k]==='') st[k]=b[k]; }
+    });
+    try{ localStorage.setItem(BK,'1') }catch(e){}
+    save();
+  }
+})();
+
+/* WORKED badge on anything that came from the baseline */
+var _paint=paint;
+paint=function(card){
+  _paint(card);
+  if(card.dataset.base){
+    var sub=card.querySelector('.lsub');
+    if(sub && !sub.querySelector('.wkb')){
+      var w=document.createElement('span'); w.className='wkb'; w.textContent='WORKED 8/24';
+      sub.appendChild(w);
+    }
+  }
+};
+
+/* counters across the whole list */
+tally=function(){
+  var d=0,h=0,v=0,tx=0,bn=0,tot=0;
+  document.querySelectorAll('.lead').forEach(function(c){
+    tot++;
+    var st=state[c.dataset.id]; if(!st) return;
+    if(st.done) d++;
+    if(st.outcome==='INTERESTED') h++;
+    v+=(st.vm||0);
+    if(st.texted) tx++;
+    if(st.bounce) bn++;
+  });
+  var g=function(i){ return document.getElementById(i) };
+  if(g('bnc')) g('bnc').textContent=bn;
+  if(g('txd')) g('txd').textContent=tx;
+  if(g('dn'))  g('dn').textContent=d;
+  if(g('hot')) g('hot').textContent=h;
+  if(g('vmc')) g('vmc').textContent=v;
+  if(g('left'))g('left').textContent=(tot-d);
+  document.querySelectorAll('.cnt[data-tier]').forEach(function(c){
+    var t=c.dataset.tier, all=document.querySelectorAll('.lead[data-tier="'+t+'"]'), done=0;
+    all.forEach(function(x){ if((state[x.dataset.id]||{}).done) done++ });
+    c.textContent=done+'/'+all.length;
+  });
+};
+
+/* follow-up triage: pull worked leads out of the cold tiers, group by next action */
+(function(){
+  var TIER={'C1':'Contractor','C2':'Contractor +email','1':'Property Mgmt','2':'Law','3':'Salon','4':'Realtor'};
+  var GROUPS=[
+    {k:'hot', t:'Send pricing now', d:'They asked. Get the capability packet and a real number out the same day \u2014 this is the only group worth money today.',
+     m:function(s){ return s.outcome==='INTERESTED' }},
+    {k:'dead',t:'Bad number \u2014 needs a fix', d:'Text bounced off a landline or the line is dead. Find a mobile or pull the lead so it stops eating dials.',
+     m:function(s){ return s.bounce || /non[ -]?working/i.test(s.note||'') }},
+    {k:'no',  t:'Not interested \u2014 requalify later', d:'Leave them 90 days, then try again. Crews change and in-house cleaning falls apart.',
+     m:function(s){ return s.outcome==='not interested' }},
+    {k:'vm',  t:'Second call \u2014 voicemail already left', d:'One voicemail is not a follow-up. Call again at a different time of day than last attempt \u2014 early morning works best for builders.',
+     m:function(s){ return (s.vm||0)>0 }},
+    {k:'back',t:'Call back \u2014 no answer yet', d:'Rang out, no voicemail left. Try again and actually leave one this time.',
+     m:function(s){ return s.outcome==='no answer'||s.outcome==='call back' }},
+    {k:'txt', t:'Texted, never reached live', d:'The text went out but nobody has talked to a human. A call on top of a text converts far better than the text alone.',
+     m:function(s){ return s.texted && !s.outcome }}
+  ];
+  function has(s){ return !!(s && (s.done||s.outcome||s.texted||s.bounce||s.vm||(s.note&&s.note.trim()))); }
+
+  var wrap=document.getElementById('fugroups'), sec=document.getElementById('fu');
+  if(!wrap||!sec) return;
+
+  var made={};
+  GROUPS.forEach(function(g){
+    var d=document.createElement('div');
+    d.className='fug fug-'+g.k+' hide';
+    d.innerHTML='<div class="fugh"><span class="fugb"></span><span class="fugt">'+g.t+'</span><span class="fugn">0</span></div><div class="fugd">'+g.d+'</div>';
+    wrap.appendChild(d); made[g.k]=d;
+  });
+
+  var moved=0, counts={};
+  Array.prototype.slice.call(document.querySelectorAll('.lead')).forEach(function(card){
+    var st=state[card.dataset.id];
+    if(!has(st)) return;
+    for(var i=0;i<GROUPS.length;i++){
+      if(GROUPS[i].m(st)){
+        var sub=card.querySelector('.lsub');
+        if(sub && !sub.querySelector('.tlab')){
+          var t=document.createElement('span'); t.className='tlab';
+          t.textContent=TIER[card.dataset.tier]||card.dataset.tier;
+          sub.appendChild(t);
+        }
+        made[GROUPS[i].k].appendChild(card);
+        counts[GROUPS[i].k]=(counts[GROUPS[i].k]||0)+1;
+        moved++;
+        break;
+      }
+    }
+  });
+
+  GROUPS.forEach(function(g){
+    var n=counts[g.k]||0;
+    made[g.k].querySelector('.fugn').textContent=n;
+    made[g.k].classList.toggle('hide', n===0);
+  });
+  document.getElementById('fucnt').textContent=moved;
+  sec.classList.toggle('empty', moved===0);
+
+  document.querySelectorAll('.tier').forEach(function(t){
+    if(!t.querySelector('.lead')){
+      var e=document.createElement('div'); e.className='emptytier';
+      e.textContent='Every lead in this tier has been worked \u2014 they are all up in Follow-up.';
+      t.appendChild(e);
+    }
+  });
+
+  var FK='puretek-fu-collapsed';
+  var col=false; try{ col=localStorage.getItem(FK)==='1' }catch(e){}
+  var tog=document.getElementById('futog');
+  function paintTog(){ sec.classList.toggle('col',col); tog.textContent=col?'show':'hide'; }
+  tog.addEventListener('click',function(){
+    col=!col; try{ localStorage.setItem(FK,col?'1':'0') }catch(e){}
+    paintTog();
+  });
+  paintTog();
+  console.log('[v6] follow-up: '+moved+' worked leads triaged; '+(204-moved)+' still cold');
+})();
+
+document.querySelectorAll('.lead').forEach(paint);
+tally();
+(function(){
+  var n=0; for(var k in state) n++;
+  if(n) document.getElementById('saved').textContent='restored '+n+' logged';
+})();
+</script>
+</body></html>
