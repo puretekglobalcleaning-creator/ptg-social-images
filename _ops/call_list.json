@@ -1,5 +1,1 @@
-{"generated":"2026-08-27 (render test)","due_count":2,"cut_by_cap":0,
- "leads":[
-  {"name":"RENDER TEST — ignore","phone":"+18323801738","phone_display":"(832) 380-1738","segment":"Contractor / Trade","city":"Katy","touch":2,"last_touch":"2026-08-21","last_outcome":"left voicemail","note":"Sample row proving the Due-today panel renders. Replaced by the first real sweep."},
-  {"name":"RENDER TEST 2 — landline","phone":"+18323801738","phone_display":"(832) 380-1738","segment":"Property Mgmt","city":"Sugar Land","touch":3,"last_touch":"2026-08-20","last_outcome":"no answer","sms":false,"note":"Landline — dial only, no text button."}
- ]}
+{"generated":"","due_count":0,"cut_by_cap":0,"leads":[]}
