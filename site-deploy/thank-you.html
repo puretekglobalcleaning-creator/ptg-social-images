@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16655749332"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-16655749332');
+</script>
+<!-- Puretek conversion tracking v2 (2026-09-10). Click-to-call + Jobber embed submit. -->
+<script>
+(function () {
+  var CALL = 'AW-16655749332/prJ5CJuyieYcENShioY-';
+  var FORM = 'AW-16655749332/ra9uCM6dyJUbENShioY-';
+  var fired = {};
+
+  function fire(label, name) {
+    if (fired[label]) return;
+    fired[label] = true;
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', { 'send_to': label, 'value': 1.0, 'currency': 'USD' });
+      gtag('event', name, { 'event_category': 'lead' });
+    }
+  }
+
+  // --- Click to call / text -------------------------------------------------
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t && t.nodeType === 3) { t = t.parentNode; }
+    if (!t || !t.closest) { return; }
+    if (t.closest('a[href^="tel:"], a[href^="sms:"]')) { fire(CALL, 'contact_call'); }
+  }, true);
+
+  // --- Capture gclid for offline import ------------------------------------
+  try {
+    var _g = new URLSearchParams(window.location.search).get('gclid');
+    if (_g) { localStorage.setItem('ptg_gclid', _g); }
+  } catch (err) {}
+
+  // --- Jobber embedded form -------------------------------------------------
+  // The form is a cross-origin iframe (clienthub.getjobber.com) and emits no
+  // postMessage, so its submit cannot be read directly. Two safe detectors:
+  //   1. iframe re-navigation  -> a load event after the first one means the
+  //      form posted and moved to its confirmation screen.
+  //   2. postMessage           -> in case Jobber ever starts emitting one.
+  // Neither can produce a false positive on a plain page view.
+  var START = Date.now();
+
+  function watchFrame(fr) {
+    if (!fr || fr.__ptgWatched) { return; }
+    fr.__ptgWatched = true;
+    var loads = 0;
+    fr.addEventListener('load', function () {
+      loads++;
+      // Ignore the initial render and anything in the first 5s of page life.
+      if (loads > 1 && (Date.now() - START) > 5000) { fire(FORM, 'form_submit'); }
+    });
+  }
+
+  function scan() {
+    var frames = document.querySelectorAll('iframe[src*="getjobber"], iframe[src*="clienthub"]');
+    for (var i = 0; i < frames.length; i++) { watchFrame(frames[i]); }
+  }
+
+  if (document.readyState !== 'loading') { scan(); }
+  else { document.addEventListener('DOMContentLoaded', scan); }
+  // Jobber injects its iframe late, so keep looking for a while.
+  var tries = 0;
+  var iv = setInterval(function () { scan(); if (++tries > 60) { clearInterval(iv); } }, 1000);
+
+  window.addEventListener('message', function (e) {
+    if (!/getjobber|clienthub/.test(e.origin || '')) { return; }
+    var d = e.data;
+    var s = typeof d === 'string' ? d : (function(){ try { return JSON.stringify(d); } catch (x) { return ''; } })();
+    if (/submit|success|complete|thank/i.test(s)) { fire(FORM, 'form_submit'); }
+  }, false);
+
+  // --- Native fallback form (kept for thank-you.html flow) -------------------
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form || !form.classList || !form.classList.contains('ptg-form')) { return; }
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    try {
+      var g = localStorage.getItem('ptg_gclid');
+      if (g && !form.querySelector('input[name="gclid"]')) {
+        var h = document.createElement('input');
+        h.type = 'hidden'; h.name = 'gclid'; h.value = g;
+        form.appendChild(h);
+      }
+    } catch (err) {}
+    var done = false;
+    function go() { if (done) { return; } done = true; window.location.href = '/thank-you.html'; }
+    setTimeout(go, 2500);
+    try {
+      fetch(form.action, { method: 'POST', mode: 'no-cors', keepalive: true,
+        body: new URLSearchParams(new FormData(form)) }).then(go).catch(go);
+    } catch (err) { form.submit(); }
+  }, false);
+})();
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Received | Puretek Global Cleaning</title>
+<meta name="description" content="Thanks — your cleaning request has been received. Puretek Global Cleaning will confirm your quote by text and email shortly.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://puretekglobal.net/thank-you.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A227;--gold-light:#E8C878;--black:#0B0B0C;--black-soft:#17171A;--cream:#FFFDF7;--gray:#6B6B66;--line:#EAE7DD}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;background:var(--black);color:var(--cream);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+.wrap{max-width:720px;margin:0 auto;padding:0 22px;width:100%}
+header{padding:26px 0;border-bottom:1px solid rgba(201,162,39,.25)}
+header .wrap{display:flex;align-items:center;gap:12px}
+header img{height:44px;width:auto}
+header .name{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;letter-spacing:.01em}
+main{flex:1;display:flex;align-items:center;padding:56px 0}
+.check{width:74px;height:74px;border-radius:50%;background:rgba(201,162,39,.12);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 26px}
+.check svg{width:36px;height:36px;stroke:var(--gold);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+h1{font-family:'Playfair Display',Georgia,serif;font-size:38px;font-weight:700;text-align:center;letter-spacing:-.01em;margin-bottom:14px}
+.lead{text-align:center;font-size:17px;color:#D8D5CC;max-width:520px;margin:0 auto 30px}
+.card{background:var(--black-soft);border:1px solid rgba(201,162,39,.28);border-radius:12px;padding:24px 26px;margin-bottom:26px}
+.card h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px}
+.card ol{list-style:none;counter-reset:s}
+.card li{counter-increment:s;position:relative;padding-left:34px;margin-bottom:12px;font-size:15px;color:#D8D5CC}
+.card li:last-child{margin-bottom:0}
+.card li::before{content:counter(s);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--black);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 26px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;transition:opacity .15s}
+.btn:hover{opacity:.88}
+.btn-gold{background:var(--gold);color:var(--black)}
+.btn-outline{border:1px solid rgba(255,253,247,.32);color:var(--cream)}
+footer{padding:26px 0;border-top:1px solid rgba(255,253,247,.1);text-align:center;font-size:13px;color:#8A8880}
+footer a{color:var(--gold-light);text-decoration:none}
+@media(max-width:560px){h1{font-size:29px}main{padding:38px 0}.ctas{flex-direction:column}.btn{text-align:center}}
+</style>
+<!-- Reaching this page IS the lead-form conversion (native-form fallback path). -->
+<script>
+  window.addEventListener('load', function () {
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', { 'send_to': 'AW-16655749332/ra9uCM6dyJUbENShioY-', 'value': 1.0, 'currency': 'USD' });
+      gtag('event', 'form_submit', { 'event_category': 'lead' });
+    }
+  });
+</script>
+</head>
+<body>
+
+<header><div class="wrap">
+  <img src="assets/logo.png" alt="Puretek Global Cleaning logo">
+  <div class="name">Puretek Global Cleaning</div>
+</div></header>
+
+<main><div class="wrap">
+  <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+  <h1>Request received</h1>
+  <p class="lead">Thanks for reaching out. Your request is in, and we'll get back to you with a confirmed quote shortly.</p>
+
+  <div class="card">
+    <h2>What happens next</h2>
+    <ol>
+      <li>We review the details you sent and check our schedule for your area.</li>
+      <li>You get a confirmed quote by text and email &mdash; usually the same day.</li>
+      <li>Approve it and pick your date. Payment is due on completion, never up front.</li>
+    </ol>
+  </div>
+
+  <p class="lead" style="margin-bottom:18px;">Need it sooner, or want to add details? Call or text us directly &mdash; we answer.</p>
+  <div class="ctas">
+    <a href="tel:+18323801738" class="btn btn-gold">Call 832-380-1738</a>
+    <a href="sms:+18323801738" class="btn btn-outline">Text Us</a>
+    <a href="index.html" class="btn btn-outline">Back to Site</a>
+  </div>
+</div></main>
+
+<footer><div class="wrap">
+  Puretek Global Solutions LLC &nbsp;&middot;&nbsp; <a href="tel:+18323801738">832-380-1738</a> &nbsp;&middot;&nbsp; <a href="https://puretekglobal.net">puretekglobal.net</a><br>
+  Insured &amp; Licensed &middot; Serving Houston, Cypress, Katy, Missouri City, Sienna Plantation, Sugar Land &amp; Richmond
+</div></footer>
+
+</body>
+</html>
