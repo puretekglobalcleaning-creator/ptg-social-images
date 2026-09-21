@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTG Multiservices | Real Credit Repair. Real Results.</title>
+<meta name="description" content="PTG Multiservices — personalized credit repair, bureau disputes, and credit rebuilding strategy. Get your free credit consultation today.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A227;
+    --gold-light: #E8C878;
+    --gold-pale: #F8E078;
+    --gold-dark: #B08830;
+    --black: #0B0B0C;
+    --black-soft: #17171A;
+    --cream: #FFFDF7;
+    --gray: #6B6B66;
+    --line: #EAE7DD;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--black);
+    background: #fff;
+    line-height: 1.6;
+  }
+  h1, h2, h3, .serif { font-family: 'Playfair Display', Georgia, serif; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 80px 0; }
+  .eyebrow {
+    color: var(--gold-dark); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 800; margin-bottom: 14px;
+  }
+  .request-section .eyebrow { color: var(--gold-light); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 15px 30px; border-radius: 8px; font-weight: 650; font-size: 15px;
+    cursor: pointer; border: none; transition: transform .15s ease, opacity .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold-pale) 0%, var(--gold) 45%, var(--gold-dark) 100%);
+    color: var(--black);
+  }
+  .btn-outline {
+    background: transparent; border: 2px solid var(--gold-dark); color: var(--gold-pale);
+    background-clip: padding-box;
+  }
+  .btn-outline.dark { color: var(--black); border-color: var(--black); }
+  .btn-block { width: 100%; }
+
+  /* NAV */
+  header {
+    position: sticky; top: 0; z-index: 100; background: var(--black);
+    border-bottom: 1px solid rgba(201,162,39,0.25);
+  }
+  nav.wrap { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo img { height: 54px; width: auto; }
+  .nav-logo span { color: #F3F1E9; font-family: 'Playfair Display', serif; font-size: 18px; letter-spacing: 0.02em; }
+  .nav-right { display: flex; align-items: center; gap: 18px; }
+  .nav-phone { color: var(--gold-light); font-weight: 600; font-size: 14.5px; white-space: nowrap; }
+  .nav-cta { padding: 10px 18px; font-size: 13.5px; }
+  @media (max-width: 640px) { .nav-phone { display: none; } }
+
+  /* HERO */
+  .hero {
+    background: radial-gradient(ellipse at 50% 0%, #1a1a1c 0%, var(--black) 60%);
+    color: #fff; text-align: center; padding: 36px 0 34px;
+  }
+  .hero-logo { width: 220px; margin: 0 auto 14px; }
+  .hero h1 {
+    font-size: clamp(34px, 5vw, 56px); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 10px;
+  }
+  .hero .tagline {
+    color: var(--gold-light); font-size: 19px; font-style: italic; font-family: 'Playfair Display', serif;
+    margin-bottom: 16px;
+  }
+  .hero p.sub {
+    max-width: 620px; margin: 0 auto 22px; color: #C8C7C0; font-size: 16.5px;
+  }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* TRUST BAR */
+  .trust-bar { background: var(--cream); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 26px 0; }
+  .trust-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; text-align: center;
+  }
+  .trust-grid div { font-size: 13.5px; font-weight: 600; color: var(--black-soft); }
+  @media (max-width: 900px) { .trust-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* SERVICES */
+  .section-head { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+  .section-head h2 { font-size: clamp(28px, 4vw, 38px); margin-bottom: 12px; }
+  .section-head p { color: var(--gray); font-size: 16px; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
+  .service-card {
+    border: 1px solid var(--line); border-radius: 14px; padding: 30px 26px; background: #fff;
+    text-align: center; display: flex; flex-direction: column; align-items: center;
+  }
+  .service-card .icon {
+    width: 42px; height: 42px; border-radius: 10px; background: var(--black);
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--gold);
+    font-size: 19px; font-weight: 700;
+  }
+  .service-card h3 { font-size: 17px; margin-bottom: 8px; }
+  .service-card p { color: var(--gray); font-size: 14px; }
+
+  /* HOW IT WORKS */
+  .process-section { background: var(--black); color: #fff; }
+  .process-section .section-head h2 { color: #fff; }
+  .process-section .section-head p { color: #B4B3A8; }
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  @media (max-width: 980px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .process-grid { grid-template-columns: 1fr; } }
+  .process-card {
+    background: linear-gradient(160deg, #17171A, #0B0B0C); border: 1.5px solid #2A2A26;
+    border-radius: 16px; padding: 30px 26px;
+  }
+  .process-card .step-num {
+    font-family: 'Playfair Display', serif; font-size: 34px; color: var(--gold-light); margin-bottom: 10px;
+  }
+  .process-card h3 { font-size: 18px; color: #fff; margin-bottom: 10px; }
+  .process-card p { color: #B4B3A8; font-size: 14.5px; }
+
+  /* REQUEST / CONSULTATION */
+  .request-section { background: var(--cream); }
+  .request-card {
+    max-width: 640px; margin: 0 auto; background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    padding: 40px; text-align: center;
+  }
+  .request-card h3 { font-size: 22px; margin-bottom: 12px; }
+  .request-card p { color: var(--gray); font-size: 15px; margin-bottom: 24px; }
+  .request-ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 22px; }
+  .disclaimer-note {
+    font-size: 12px; color: #A6A49A; margin-top: 18px; line-height: 1.5;
+  }
+
+
+  .hero-note { max-width: 760px; margin: 18px auto 0; font-size: 14px; line-height: 1.6; color: rgba(240,234,220,.72); }
+  .fee-note { font-size: 13px; line-height: 1.55; color: rgba(255,255,255,.62); margin: 8px 0 12px; }
+  .fee-note a { color: var(--gold); text-decoration: underline; }
+  /* NEXT STEPS */
+  .next-steps {
+    max-width: 640px; margin: 28px auto 0; background: var(--black); border-radius: 16px;
+    padding: 30px 26px; text-align: left;
+  }
+  .next-steps .ns-head { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .next-steps .ns-sub { color: #B4B3A8; font-size: 13.5px; margin-bottom: 20px; }
+  .ns-step { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-top: 1px solid #2A2A26; }
+  .ns-step:first-of-type { border-top: none; padding-top: 0; }
+  .ns-step .ns-num {
+    flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--gold);
+    color: var(--black); font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center;
+  }
+  .ns-step .ns-body h4 { color: #fff; font-size: 15px; margin-bottom: 4px; }
+  .ns-step .ns-body p { color: #B4B3A8; font-size: 13.5px; margin-bottom: 10px; }
+  .ns-step .btn { padding: 10px 18px; font-size: 13px; }
+
+  /* FOOTER */
+  footer { background: var(--black); color: #B4B3A8; padding: 50px 0 30px; text-align: center; }
+  footer img { height: 60px; margin: 0 auto 16px; }
+  footer .foot-name { color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 6px; }
+  footer .foot-line { font-size: 14px; margin-bottom: 4px; }
+  footer .foot-line a { color: var(--gold-light); }
+  footer .foot-copy { font-size: 12px; color: #6B6B66; margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="nav-logo">
+      <img src="assets/logo-transparent-cropped.png" alt="Puretek Global logo">
+      <span>PTG Multiservices</span>
+    </a>
+    <div class="nav-right">
+      <a href="tel:+18323801738" class="nav-phone">832-380-1738</a>
+      <a href="#consult" class="btn btn-gold nav-cta">Free Consultation</a>
+    </div>
+  </nav>
+</header>
+
+<div id="top"></div>
+<section class="hero">
+  <div class="wrap">
+    <img src="assets/logo-transparent-cropped.png" alt="PTG Multiservices" class="hero-logo">
+    <h1>PTG Multiservices</h1>
+    <div class="tagline">Real Credit Repair. Real Results.</div>
+    <p class="sub">Inaccurate items on your credit report shouldn't be what stands between you and the car, the home, or the fresh start you're working toward. We build a personalized dispute plan, challenge what's wrong with the bureaus, and keep you updated every step of the way.</p>
+    <div class="hero-ctas">
+      <a href="https://app.myfreescorenow.com/credit-snapshot/25864" target="_blank" rel="noopener" class="btn btn-gold">See My Free Equifax Score — No Card Needed</a>
+      <a href="#consult" class="btn btn-outline">Get Your Free Consultation</a>
+      <a href="tel:+18323801738" class="btn btn-outline">Call or Text 832-380-1738</a>
+    </div>
+    <p class="hero-note">Free means free — no credit card, no trial to cancel. You'll see your Equifax score and a summary of what's on your file in about two minutes. If you want the full three-bureau picture, we'll walk you through that on the call.</p>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="wrap trust-grid">
+    <div>Personalized Credit Review</div>
+    <div>Primary &amp; Secondary Bureau Disputes</div>
+    <div>Bilingual Support</div>
+    <div>Houston-Based Team</div>
+    <div>Real, Documented Results</div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Services</div>
+      <h2>A real strategy, not just a letter</h2>
+      <p>Every client gets a plan built around their actual report — not a generic template.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon">1</div>
+        <h3>Personalized File Review</h3>
+        <p>We analyze your credit reports line by line to find every inaccurate, outdated, or unverifiable item working against you.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">2</div>
+        <h3>Primary &amp; Secondary Bureau Disputes</h3>
+        <p>We challenge negative items with all three major bureaus, plus secondary reporting agencies like LexisNexis.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">3</div>
+        <h3>Aggressive Dispute Cadence</h3>
+        <p>Consistent, strategic rounds — not a one-and-done letter. We stay on it until items are resolved.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">4</div>
+        <h3>Utilization &amp; Profile Strategy</h3>
+        <p>We show you how to lower utilization and strengthen your credit profile so your score climbs faster.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">5</div>
+        <h3>Financing &amp; Rebuilding Guidance</h3>
+        <p>As negative items clear, we guide you toward smarter credit moves and stronger approval odds.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">6</div>
+        <h3>Monthly Progress Reports</h3>
+        <p>You'll see exactly what changed, what's pending, and what's next — no guessing, no radio silence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow" style="color:var(--gold-light);">How It Works</div>
+      <h2>From request to a stronger score</h2>
+      <p>Four steps, no confusion about where you stand.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-card">
+        <div class="step-num">01</div>
+        <h3>Request Your Consultation</h3>
+        <p>Tell us about your credit situation and goals — buying a home, a car, or just cleaning up your file. No cost, no pressure.</p>
+      </div>
+      <div class="process-card">
+        <div class="step-num">02</div>
+        <h3>Connect Your Credit Report</h3>
+        <p>We'll send you a quick, free sign-up link so we can securely pull your 3-bureau report before we talk — no guessing on the call.</p>
+      </div>
+      <div class="process-card">
+        <div class="step-num">03</div>
+        <h3>Book Your Free Call</h3>
+        <p>Pick a time that works for you. We'll already have your report pulled up and ready to walk through together.</p>
+      </div>
+      <div class="process-card">
+        <div class="step-num">04</div>
+        <h3>We Dispute &amp; You See Progress</h3>
+        <p>Rounds go out, items get challenged, and you get monthly updates on your score and what's changed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="request-section" id="consult">
+  <div class="wrap">
+    <div class="request-card">
+      <div class="eyebrow">Get Started</div>
+      <h3>Ready to start your credit turnaround?</h3>
+      <p>Fill out the short form below with your info and a bit about your credit situation — a member of our team will reach out to schedule your free consultation.</p>
+
+      <iframe src="https://pulse.disputeprocess.com/jsp/custom_form.jsp?tab_id=RlQ4dERZV0pFdVhJcXk4bTAzK2VNQT09&cust_type=1&company_id=K0xvdEh1dTZidWZjWGd1TVhvT3Vldz09&isLinkFromIframe=1&redirect_url=" height="850" width="100%" style="background:white; border-radius: 10px;" frameborder="0"></iframe>
+
+      <div class="request-ctas">
+        <a href="tel:+18323801738" class="btn btn-outline dark">Call 832-380-1738</a>
+        <a href="sms:+18323801738" class="btn btn-outline dark">Text Us</a>
+      </div>
+      <div class="disclaimer-note">Submitting this form does not guarantee removal of any specific item from your credit report. Results vary based on individual circumstances.</div>
+
+      <div class="next-steps">
+        <div class="ns-head">Already requested your consultation?</div>
+        <div class="ns-sub">Complete these two quick steps so we can review your actual report on the call — not just talk in general terms.</div>
+        <div class="ns-step">
+          <div class="ns-num">1</div>
+          <div class="ns-body">
+            <h4>Connect Your Credit Report</h4>
+            <p>This is the step that lets us actually work your file. Through our monitoring partner, MyFreeScoreNow, you'll start a 7-day trial that gives us your full three-bureau report — so we're reviewing your real file on the call instead of talking in generalities. It takes about 2 minutes.</p>
+            <p class="fee-note">This one does require a card, and here are the exact numbers: <strong>$29.90 to start, which covers your first 7 days, then $11/month</strong> for ongoing 3-bureau monitoring. You can cancel anytime. We keep the monitoring active while we work your file so we can see changes as they happen.</p>
+            <a href="https://app.myfreescorenow.com/enroll/B01C3707" target="_blank" rel="noopener" class="btn btn-gold">Connect My 3-Bureau Report</a>
+            <p class="fee-note">Just want to see where you stand first, with no card? <a href="https://app.myfreescorenow.com/credit-snapshot/25864" target="_blank" rel="noopener">Start with the free Equifax snapshot</a>.</p>
+          </div>
+        </div>
+        <div class="ns-step">
+          <div class="ns-num">2</div>
+          <div class="ns-body">
+            <h4>Book Your Free Call</h4>
+            <p>Pick a day and time that works for you. We'll have your report ready to review together.</p>
+            <a href="https://pulse.scorexer.com/Portal/meeting.jsp?id=3798b1c8-1ca1-4936-9f34-0a9199a3b788" target="_blank" rel="noopener" class="btn btn-outline">Book My Consultation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/logo-transparent-cropped.png" alt="Puretek Global logo">
+    <div class="foot-name">Puretek Global LLC — PTG Multiservices</div>
+    <div class="foot-line"><a href="tel:+18323801738">832-380-1738</a> &nbsp;·&nbsp; <a href="https://www.ptgmultiservices.com">www.ptgmultiservices.com</a></div>
+    <div class="foot-line"><a href="privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="sms-terms.html">SMS Terms</a></div>
+    <div class="foot-line">Houston, TX — proud to serve our community</div>
+    <div class="foot-copy">&copy; 2026 Puretek Global LLC. All rights reserved.</div>
+  </div>
+</footer>
+
+
+</body>
+</html>
