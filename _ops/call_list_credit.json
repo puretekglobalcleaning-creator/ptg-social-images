@@ -10,7 +10,7 @@
    "segment": "Dealer finance",
    "city": "Houston 77031",
    "rank": 1,
-   "why_now": "subprime-finance network lot, sees declines daily, Spanish-market corridor, cold email sent 10/12, call is the follow-up",
+   "why_now": "subprime-finance network lot, sees declines daily, Spanish-market corridor; email could not go out (Zapier limit), so this is a cold call",
    "opener": "Hey [Name], this is Donta Polk here in Houston. I run PTG Multiservices, a credit consulting firm. Quick question: when somebody comes in and doesn't qualify because of their credit, where do you send them right now? [Let them answer.] That's exactly why I'm calling. Send them to me. I pull a free 3-bureau soft report, no card and no hit to their score, give them a written plan, and work the file. When they're ready to qualify, I send them straight back to you and tell you they're coming. Can I text you my link so you have it next time?",
    "success": "partner says yes, link texted from this page",
    "sms": true,
