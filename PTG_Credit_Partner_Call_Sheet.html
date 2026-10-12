@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Credit Partners">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230b0b0c'/%3E%3Ctext x='90' y='118' font-size='72' font-family='Georgia,serif' font-weight='bold' fill='%23d4af37' text-anchor='middle'%3EPTG%3C/text%3E%3C/svg%3E">
+<title>PTG Credit Partner Call Sheet</title>
+<style>
+:root{--bg:#0b0b0c;--card:#141416;--line:#26262a;--gold:#d4af37;--txt:#f2f2f0;--mut:#8e8e94;--ok:#3fb950}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:0 0 96px}
+header{padding:calc(16px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,11,12,.94);backdrop-filter:blur(10px);z-index:5}
+h1{margin:0;font-size:18px;letter-spacing:.02em} h1 span{color:var(--gold)}
+.sub{color:var(--mut);font-size:12px;margin-top:3px}
+main{padding:12px;max-width:720px;margin:0 auto}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin:0 0 10px}
+.box h2{margin:0 0 6px;font-size:12px;color:var(--gold);text-transform:uppercase;letter-spacing:.08em}
+.box p{margin:0 0 8px;font-size:14px;color:#dcdcd8}
+.lead{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin:0 0 10px}
+.lead.done{opacity:.55} .lead.hot{border-color:var(--gold)}
+.lrow{display:flex;gap:10px;align-items:flex-start}
+.linfo{flex:1;min-width:0}
+.lname{font-weight:700;font-size:16px}
+.rank{display:inline-block;background:var(--gold);color:#0b0b0c;border-radius:6px;padding:0 6px;font-size:12px;margin-right:6px}
+.lsub{color:var(--mut);font-size:13px;margin-top:2px}
+.why{color:#e9d9a6;font-size:13px;margin-top:4px}
+.acts{display:flex;flex-direction:column;gap:6px;flex:0 0 auto}
+.call,.txt{display:block;text-align:center;text-decoration:none;border-radius:8px;padding:9px 12px;font-size:14px;font-weight:700;white-space:nowrap}
+.call{background:var(--gold);color:#0b0b0c} .txt{border:1px solid var(--gold);color:var(--gold)}
+details{margin-top:6px} summary{cursor:pointer;color:var(--gold);font-size:13px}
+.script{white-space:pre-wrap;font-size:13px;color:#dcdcd8;background:#0f0f11;border-radius:8px;padding:8px;margin-top:6px}
+.outcome{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.outcome button{background:#1c1c20;border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 10px;font-size:13px}
+.outcome button.sel{background:var(--gold);color:#0b0b0c;border-color:var(--gold)}
+textarea.note{width:100%;margin-top:8px;background:#0f0f11;border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px;font-size:13px;min-height:40px;font-family:inherit}
+#emlog{width:100%;font-size:14px;padding:12px;border-radius:10px;border:1px solid var(--gold);background:var(--gold);color:#0b0b0c;font-weight:700}
+#emlogn{color:var(--mut);font-size:12px;margin-top:6px;text-align:center}
+.empty{color:var(--mut);text-align:center;padding:30px 10px}
+</style></head><body>
+<header><h1><span>PTG</span> Credit Partner Call Sheet</h1><div class="sub" id="gen">loading the list…</div></header>
+<main>
+<div class="box"><h2>The ask</h2><p>“Can I be the person you send your ‘not yet’ files to?” Not a contract, not a fee. Success on every call: a yes, then the link texted from this page. Partners only live here; consumer names stay in the daily report.</p>
+<details><summary>Phone opener</summary><div class="script">Hey [Name], this is Donta Polk here in Houston. I run PTG Multiservices, a credit consulting firm. Quick question: when somebody comes in and doesn't qualify because of their credit, where do you send them right now?
+
+[Let them answer. Whatever they say is the opening.]
+
+That's exactly why I'm calling. Send them to me. I pull a free 3-bureau soft report, no card and no hit to their score, give them a written plan, and work the file. When they're ready to qualify, I send them straight back to you and tell you they're coming. Can I text you my link so you have it next time?</div></details>
+<details><summary>Voicemail (under 20 seconds)</summary><div class="script">[Name], Donta Polk, PTG Multiservices in Houston. When a buyer doesn't qualify on credit, I'm the guy you send them to, and I send them back when they're ready. 832-380-1738. Thanks.</div></details>
+</div>
+<div class="box"><button id="emlog" type="button">✉ Email today’s log</button><div id="emlogn"></div></div>
+<section id="list"><div class="empty">loading the call list…</div></section>
+</main>
+<script>
+/* PTG Credit Partner Call Sheet v1 (2026-10-12). Reads _ops/call_list_credit.json (partners only). Outcomes live in this browser
+   (localStorage) until "Email today's log" mails them as CREDIT CALL LOG YYYY-MM-DD; the credit engine ingests that email into the
+   Referral Partners tab. Same log line format as the cleaning sheet so one ingest pattern serves both engines. */
+(function(){
+  var KEY='ptg-credit-callsheet-v1', LOG_TO='donta@puretekglobal.net', SNAP='https://app.myfreescorenow.com/credit-snapshot/25864';
+  var OUT=[['left voicemail','📞 Left voicemail'],['no answer','No answer'],['call back','Call back'],['talked','Talked'],['interested','Interested ★'],['partner yes','Partner says YES ✔'],['not a fit','Not a fit'],['bad number','Wrong/bad number']];
+  var state={}; try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{} }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)) }catch(e){} }
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+  function digits(p){return String(p||'').replace(/[^0-9+]/g,'');}
+  function key(x){ var ph=digits(x.phone); return 'p:'+(ph||String(x.name||'').toLowerCase()); }
+  function smsBody(x){ var first=String(x.contact||'').split(' ')[0]; return 'Good talking with you'+(first?', '+first:'')+'. Here’s what to send your “not yet” clients: a free 3-bureau review, no card, no score hit → '+SNAP+'. When they finish it, I’ll call them within one business day and keep you posted. — Donta, PTG Multiservices'; }
+  function card(x,i){
+    var ph=digits(x.phone), k=key(x), who=[x.contact,x.title].filter(Boolean).join(', ');
+    var call=ph?'<a class="call" href="tel:'+esc(ph)+'">'+esc(x.phone_display||x.phone)+'</a>':'<span class="call" style="opacity:.6">no number</span>';
+    var sms=(x.sms===false||!ph)?'':'<a class="txt" href="sms:'+esc(ph)+'?&body='+encodeURIComponent(smsBody(x))+'">Text the link</a>';
+    var btns=OUT.map(function(o){return '<button type="button" data-o="'+o[0]+'">'+o[1]+'</button>'}).join('');
+    return '<div class="lead" data-id="'+esc(k)+'" data-name="'+esc(x.name)+'" data-phone="'+esc(x.phone_display||x.phone||'')+'"><div class="lrow"><div class="linfo">'+
+      '<div class="lname"><span class="rank">#'+esc(x.rank||(i+1))+'</span>'+esc(x.name)+'</div>'+
+      '<div class="lsub">'+(who?esc(who):'ask for the finance manager or the owner')+'</div>'+
+      '<div class="lsub">'+esc([x.segment,x.city].filter(Boolean).join(' · '))+(x.last_outcome?' · last: '+esc(x.last_outcome):'')+'</div>'+
+      (x.why_now?'<div class="why"><b>Why now:</b> '+esc(x.why_now)+'</div>':'')+
+      (x.success?'<div class="lsub"><b>Success:</b> '+esc(x.success)+'</div>':'')+
+      (x.opener?'<details><summary>Opener</summary><div class="script">'+esc(x.opener)+'</div></details>':'')+
+      '</div><div class="acts">'+call+sms+'</div></div><div class="outcome">'+btns+'</div><textarea class="note" placeholder="note (who you talked to, callback time, what they said)"></textarea></div>';
+  }
+  function paint(c){ var st=state[c.dataset.id]||{}; c.classList.toggle('done',!!st.done); c.classList.toggle('hot',st.outcome==='interested'||st.outcome==='partner yes');
+    c.querySelectorAll('.outcome button').forEach(function(b){ b.classList.toggle('sel', st.outcome===b.dataset.o) });
+    var n=c.querySelector('.note'); if(n&&n.value!==(st.note||'')) n.value=st.note||''; }
+  function recent(st){ return !!st.ts && (Date.now()-st.ts)<3*86400000; }
+  function logLines(){ var L=[]; for(var id in state){ var st=state[id]; if(!st||!recent(st)) continue; if(!(st.outcome||st.texted||(st.note&&st.note.trim()))) continue;
+      L.push([st.name||id, digits(st.phone||''), st.outcome||(st.texted?'texted only':''), st.vm?('vm'+st.vm):'', '', String(st.note||'').replace(/[\r\n|]+/g,' ').trim(), st.at||st.textedAt||''].join(' | ')); } return L; }
+  function paintN(){ var n=logLines().length; document.getElementById('emlogn').textContent=n?(n+' outcome'+(n>1?'s':'')+' to send'):'nothing logged in the last 3 days'; }
+  document.getElementById('emlog').addEventListener('click',function(){ var lines=logLines(); if(!lines.length){ alert('Nothing logged in the last 3 days.'); return; }
+    var d=new Date(), ds=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+    var body='CREDIT CALL LOG '+ds+'\nname | phone | outcome | voicemails | bounce | note | when\n'+lines.join('\n')+'\n\n(sent from the PTG Credit Partner Call Sheet; the credit engine writes this into the Referral Partners tab)';
+    window.location.href='mailto:'+LOG_TO+'?subject='+encodeURIComponent('CREDIT CALL LOG '+ds)+'&body='+encodeURIComponent(body); });
+  fetch('_ops/call_list_credit.json?t='+Date.now(),{cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.json(); }).then(function(d){
+    var L=(d&&d.leads)||[]; document.getElementById('gen').textContent='list of '+esc(d.generated||'')+' · '+L.length+' partners · log an outcome on every call, then email the log once';
+    var sec=document.getElementById('list'); if(!L.length){ sec.innerHTML='<div class="empty">No partners on the list yet.</div>'; return; }
+    sec.innerHTML=L.map(card).join('');
+    sec.querySelectorAll('.lead').forEach(function(c){ var id=c.dataset.id;
+      function stamp(){ state[id]=state[id]||{}; state[id].name=c.dataset.name; state[id].phone=c.dataset.phone; state[id].ts=Date.now(); return state[id]; }
+      c.querySelectorAll('.outcome button').forEach(function(b){ b.addEventListener('click',function(){ var st=stamp();
+        if(b.dataset.o==='left voicemail'){ st.vm=(st.vm||0)+1; st.outcome='left voicemail'; st.done=true; }
+        else if(st.outcome===b.dataset.o){ st.outcome=null; st.done=false; } else { st.outcome=b.dataset.o; st.done=true; }
+        st.at=new Date().toLocaleString(); paint(c); paintN(); save(); }); });
+      var tb=c.querySelector('.txt'); if(tb) tb.addEventListener('click',function(){ var st=stamp(); st.texted=true; st.textedAt=new Date().toLocaleString(); paint(c); paintN(); save(); });
+      var nt=c.querySelector('.note'); if(nt) nt.addEventListener('input',function(){ var st=stamp(); st.note=this.value; paint(c); save(); });
+      paint(c); });
+    paintN(); setInterval(paintN,4000);
+  }).catch(function(e){ document.getElementById('list').innerHTML='<div class="empty">Could not load the call list ('+esc(e.message)+').</div>'; document.getElementById('gen').textContent='list unavailable'; });
+})();
+</script>
+</body></html>
