@@ -1,0 +1,22 @@
+PURETEK GLOBAL CLEANING BLOG — STYLE RULES (set by Donta and Kenia, Oct 2026)
+
+VOICE: professional and plain-spoken, between polished and conversational. No slang, no "real talk",
+no hype. Short sentences. Real content, never generic filler. About a 5-minute read (900-1,200 words of body).
+BYLINE: Donta & Kenia, Puretek Global Cleaning.
+LOOK: black background, white text, Puretek gold accents (blog.css already does this). Do not restyle.
+STRUCTURE (copy example-post-body.html): crumbs + eyebrow + H1 with one gold italic <span class="accent"> phrase
++ one-paragraph lede + byline -> lead image -> "The short answer" box (AEO: answer the search question in 2-3 sentences)
+-> 2-4 H2 sections -> numbered "spot" blocks with REAL job photos -> one Houston tip box -> checklist (ul.checks)
+-> "Questions we get" FAQ (3-4 <details>, first one open; feeds FAQPage schema) -> Keep reading links -> CTA band.
+FACTS: every number from a primary source (EPA, CDC, OSHA, NIH, university, ISSA, NAR/Zillow research, industry survey).
+Name the source and say honestly what it measured (sample size, who ran it). Never invent a number. Link primary sources.
+PRICES: never publish a rate, minimum or formula. Example totals only when Donta has approved them. Commercial and
+post-construction = "priced after a walkthrough".
+PHOTOS: real Puretek Global Cleaning job photos only (Drive folder Puretek_GBP_Ready_Photos), never stock.
+Caption honestly (if a photo is from a different job type, don't imply otherwise). No photo is better than a wrong photo.
+Resize to <=1400px wide, JPEG q82, kebab-case filenames, store under assets/blog/.
+NAMES/WORDS: always "Puretek Global Cleaning" (never bare "Puretek"). Never "spotless" (use "clean and presentation-ready").
+Never "licensed", never "uniformed". Kenia is K-E-N-I-A. Only public phone: 346-615-4646. No serial commas in copy.
+SEO/GEO: slug = topic + houston keywords; title tag < 70 chars ending "| Puretek Global Cleaning"; meta description ~155 chars;
+link 2-3 related site pages + 1 earlier post; mention Houston-area specifics (humidity, rain, suburbs we serve).
+PUBLISHED SO FAR: texas-security-deposit-move-out-cleaning-houston (10/14), multi-tenant-office-cleaning-houston-scope (10/17).
