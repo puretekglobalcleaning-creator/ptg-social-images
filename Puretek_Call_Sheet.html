@@ -1671,7 +1671,7 @@ tally();
     fetch(url,{cache:'no-store'}).then(function(r){
       if(!r.ok) throw new Error('http '+r.status); return r.json();
     }).then(function(d){
-      var L=(d&&d.leads)||[]; if(!L.length){ sec.remove(); return; }
+      var L=((d&&d.leads)||[]).filter(function(x){return !/thumbtack/i.test(x.segment||'') && String(x.phone||'').replace(/\D/g,'').slice(-10).indexOf('728')!==0;}); if(!L.length){ sec.remove(); return; }
       var h='<div id="fuh" style="margin-top:14px"><span>Due today &mdash; '+esc(d.generated||'')+
             '</span><span class="cnt">'+L.length+'</span></div>'+
             '<div class="fun" style="margin:0 4px 10px">Everyone whose follow-up date came up today, pulled from the master tracker. Work these first; the tiers below are the cold list.'+
