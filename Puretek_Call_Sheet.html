@@ -1658,6 +1658,15 @@ tally();
     sec.id='due'; sec.className='empty';
     sec.style.cssText='margin:0 0 6px';
     main.insertBefore(sec,main.firstChild);
+    function fuMsg(seg){
+  seg=String(seg||'');
+  var tail='\n\nCall or text us: (346) 615-4646\nwww.puretekglobal.net';
+  if(/residential|thumbtack|past client/i.test(seg))
+    return 'Hi — Donta with Puretek Global Cleaning. Following up on the cleaning we talked about. Still something you need a hand with?'+tail;
+  if(/contractor|trade|builder|construction|remodel/i.test(seg))
+    return 'Hi — Donta with Puretek Global Cleaning. Following up on my last message about partnering with your team on post-construction and final cleans. We work around your build schedule so the punch-out clean is done before the walkthrough. Can I send over pricing or set up a quick call this week?'+tail;
+  return 'Hi — Donta with Puretek Global Cleaning. Following up on my last message about partnering with your business on recurring commercial cleaning. We work around your hours and keep your space clean and presentation-ready for your clients. Can I send over pricing or set up a quick call this week?'+tail;
+}
     var url='_ops/call_list.json?t='+Date.now();
     fetch(url,{cache:'no-store'}).then(function(r){
       if(!r.ok) throw new Error('http '+r.status); return r.json();
@@ -1669,7 +1678,7 @@ tally();
             (d.cut_by_cap?' <b>'+esc(d.cut_by_cap)+' more were due and cut by the 25 cap.</b>':'')+'</div>';
       L.forEach(function(x){
         var ph=digits(x.phone), sms=x.sms===false?'':
-          '<a class="txt" href="openphone://message?number='+encodeURIComponent(ph)+'&text='+encodeURIComponent('Hi — Donta with Puretek Global Cleaning. Following up on the cleaning we talked about. Still something you need a hand with?\n\nCall or text us: (346) 615-4646')+'">Text</a>';
+          '<a class="txt" href="openphone://message?number='+encodeURIComponent(ph)+'&text='+encodeURIComponent(fuMsg(x.segment))+'">Text</a>';
         h+='<div class="lead"><div class="lrow">'+
            '<div class="linfo"><div class="lname">'+esc(x.name)+'</div>'+
            '<div class="lsub">'+esc([x.segment,x.city].filter(Boolean).join(' · '))+
