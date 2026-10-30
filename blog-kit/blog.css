@@ -119,3 +119,4 @@ body{background:var(--black);}
 .related a:hover{color:var(--gold-light);}
 .post .lead-img img{box-shadow:0 18px 40px -18px rgba(0,0,0,.9);border:1px solid rgba(201,162,39,.2);}
 .cta-band{border-top:1px solid rgba(201,162,39,.2);}
+.post .lead-img figcaption{font-size:13.5px;color:#8F8E86;font-style:italic;margin-top:10px;padding:0 24px;line-height:1.5;}
